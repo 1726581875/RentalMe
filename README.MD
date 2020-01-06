@@ -8,7 +8,7 @@ role 权限(0是普通用户, 1是管理员)
 brief 简介
 realName 真实姓名
 idNumber 身份证号
-state 用户状态(正常0,管理员1, 封禁2, 未还清3，未实名4)
+state 用户状态(正常0,封禁1, 未还清2，未实名3)
 
 detail表:
 uid 用户id
