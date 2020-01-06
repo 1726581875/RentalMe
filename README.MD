@@ -10,6 +10,12 @@ realName 真实姓名
 idNumber 身份证号
 state 用户状态(正常0,管理员1, 封禁2, 未还清3，未实名4)
 
+detail表:
+uid 用户id
+brief 简介
+realName 真实姓名
+idNumber 身份证号
+
 category表:
 id id自增
 name 类名
