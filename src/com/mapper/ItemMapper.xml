@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.ItemMapper">
+  <resultMap id="BaseResultMap" type="com.pojo.Item">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="cid" jdbcType="INTEGER" property="cid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="basePayment" jdbcType="INTEGER" property="basepayment" />
+    <result column="countType" jdbcType="VARCHAR" property="counttype" />
+    <result column="minTime" jdbcType="INTEGER" property="mintime" />
+    <result column="maxTime" jdbcType="INTEGER" property="maxtime" />
+    <result column="overTimeMoney" jdbcType="INTEGER" property="overtimemoney" />
+    <result column="deposit" jdbcType="INTEGER" property="deposit" />
+    <result column="renewable" jdbcType="INTEGER" property="renewable" />
+    <result column="rentalState" jdbcType="INTEGER" property="rentalstate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, uid, cid, title, contact, createDate, basePayment, countType, minTime, maxTime, 
+    overTimeMoney, deposit, renewable, rentalState
+  </sql>
+  <select id="selectByExample" parameterType="com.pojo.ItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pojo.ItemExample">
+    delete from item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pojo.Item">
+    insert into item (id, uid, cid, 
+      title, contact, createDate, 
+      basePayment, countType, minTime, 
+      maxTime, overTimeMoney, deposit, 
+      renewable, rentalState)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{createdate,jdbcType=TIMESTAMP}, 
+      #{basepayment,jdbcType=INTEGER}, #{counttype,jdbcType=VARCHAR}, #{mintime,jdbcType=INTEGER}, 
+      #{maxtime,jdbcType=INTEGER}, #{overtimemoney,jdbcType=INTEGER}, #{deposit,jdbcType=INTEGER}, 
+      #{renewable,jdbcType=INTEGER}, #{rentalstate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pojo.Item">
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="cid != null">
+        cid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="contact != null">
+        contact,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="basepayment != null">
+        basePayment,
+      </if>
+      <if test="counttype != null">
+        countType,
+      </if>
+      <if test="mintime != null">
+        minTime,
+      </if>
+      <if test="maxtime != null">
+        maxTime,
+      </if>
+      <if test="overtimemoney != null">
+        overTimeMoney,
+      </if>
+      <if test="deposit != null">
+        deposit,
+      </if>
+      <if test="renewable != null">
+        renewable,
+      </if>
+      <if test="rentalstate != null">
+        rentalState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null">
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basepayment != null">
+        #{basepayment,jdbcType=INTEGER},
+      </if>
+      <if test="counttype != null">
+        #{counttype,jdbcType=VARCHAR},
+      </if>
+      <if test="mintime != null">
+        #{mintime,jdbcType=INTEGER},
+      </if>
+      <if test="maxtime != null">
+        #{maxtime,jdbcType=INTEGER},
+      </if>
+      <if test="overtimemoney != null">
+        #{overtimemoney,jdbcType=INTEGER},
+      </if>
+      <if test="deposit != null">
+        #{deposit,jdbcType=INTEGER},
+      </if>
+      <if test="renewable != null">
+        #{renewable,jdbcType=INTEGER},
+      </if>
+      <if test="rentalstate != null">
+        #{rentalstate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pojo.ItemExample" resultType="java.lang.Long">
+    select count(*) from item
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update item
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null">
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.cid != null">
+        cid = #{record.cid,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contact != null">
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null">
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.basepayment != null">
+        basePayment = #{record.basepayment,jdbcType=INTEGER},
+      </if>
+      <if test="record.counttype != null">
+        countType = #{record.counttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mintime != null">
+        minTime = #{record.mintime,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxtime != null">
+        maxTime = #{record.maxtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.overtimemoney != null">
+        overTimeMoney = #{record.overtimemoney,jdbcType=INTEGER},
+      </if>
+      <if test="record.deposit != null">
+        deposit = #{record.deposit,jdbcType=INTEGER},
+      </if>
+      <if test="record.renewable != null">
+        renewable = #{record.renewable,jdbcType=INTEGER},
+      </if>
+      <if test="record.rentalstate != null">
+        rentalState = #{record.rentalstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update item
+    set id = #{record.id,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      cid = #{record.cid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      basePayment = #{record.basepayment,jdbcType=INTEGER},
+      countType = #{record.counttype,jdbcType=VARCHAR},
+      minTime = #{record.mintime,jdbcType=INTEGER},
+      maxTime = #{record.maxtime,jdbcType=INTEGER},
+      overTimeMoney = #{record.overtimemoney,jdbcType=INTEGER},
+      deposit = #{record.deposit,jdbcType=INTEGER},
+      renewable = #{record.renewable,jdbcType=INTEGER},
+      rentalState = #{record.rentalstate,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pojo.Item">
+    update item
+    <set>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="cid != null">
+        cid = #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="basepayment != null">
+        basePayment = #{basepayment,jdbcType=INTEGER},
+      </if>
+      <if test="counttype != null">
+        countType = #{counttype,jdbcType=VARCHAR},
+      </if>
+      <if test="mintime != null">
+        minTime = #{mintime,jdbcType=INTEGER},
+      </if>
+      <if test="maxtime != null">
+        maxTime = #{maxtime,jdbcType=INTEGER},
+      </if>
+      <if test="overtimemoney != null">
+        overTimeMoney = #{overtimemoney,jdbcType=INTEGER},
+      </if>
+      <if test="deposit != null">
+        deposit = #{deposit,jdbcType=INTEGER},
+      </if>
+      <if test="renewable != null">
+        renewable = #{renewable,jdbcType=INTEGER},
+      </if>
+      <if test="rentalstate != null">
+        rentalState = #{rentalstate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pojo.Item">
+    update item
+    set uid = #{uid,jdbcType=INTEGER},
+      cid = #{cid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      basePayment = #{basepayment,jdbcType=INTEGER},
+      countType = #{counttype,jdbcType=VARCHAR},
+      minTime = #{mintime,jdbcType=INTEGER},
+      maxTime = #{maxtime,jdbcType=INTEGER},
+      overTimeMoney = #{overtimemoney,jdbcType=INTEGER},
+      deposit = #{deposit,jdbcType=INTEGER},
+      renewable = #{renewable,jdbcType=INTEGER},
+      rentalState = #{rentalstate,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
