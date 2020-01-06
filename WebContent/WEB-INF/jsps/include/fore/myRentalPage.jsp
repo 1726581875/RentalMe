@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-我的借出页
-<%@include file="listOrderPage.jsp"%>
+我的借出页, 列出一些订单,还有卖家的操作
 </body>
 </html>

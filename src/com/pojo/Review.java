@@ -15,6 +15,29 @@ public class Review {
 
     private Integer review;
 
+//    数据库没有的可选字段
+    private User user;
+    
+    private User fromUser;
+    
+    
+    
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getFromUser() {
+        return fromUser;
+    }
+
+    public void setFromUser(User fromUser) {
+        this.fromUser = fromUser;
+    }
+
     public Integer getId() {
         return id;
     }

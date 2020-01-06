@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-我买到的订单. 还有列出一些操作
-<%@include file="listOrderPage.jsp"%>
+我买到的订单. 还有列出一些买家的操作
 </body>
 </html>

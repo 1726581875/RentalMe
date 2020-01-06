@@ -32,6 +32,29 @@ public class Orders {
     private Integer realpaymoney;
 
     private String status;
+    
+//    数据库没有的字段
+    private Item item;
+    
+    private User ownUser;
+    
+    
+    
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public User getOwnUser() {
+        return ownUser;
+    }
+
+    public void setOwnUser(User ownUser) {
+        this.ownUser = ownUser;
+    }
 
     public Integer getId() {
         return id;

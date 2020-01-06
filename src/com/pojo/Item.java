@@ -1,6 +1,7 @@
 package com.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Item {
     private Integer id;
@@ -30,6 +31,38 @@ public class Item {
     private Integer renewable;
 
     private Integer rentalstate;
+
+//    数据库没有的字段
+    private User ownUser;
+    
+    private Itemimage firstImage;
+    
+    private List<Itemimage> itemimages;
+    
+    
+    public User getOwnUser() {
+        return ownUser;
+    }
+
+    public void setOwnUser(User ownUser) {
+        this.ownUser = ownUser;
+    }
+
+    public Itemimage getFirstImage() {
+        return firstImage;
+    }
+
+    public void setFirstImage(Itemimage firstImage) {
+        this.firstImage = firstImage;
+    }
+
+    public List<Itemimage> getItemimages() {
+        return itemimages;
+    }
+
+    public void setItemimages(List<Itemimage> itemimages) {
+        this.itemimages = itemimages;
+    }
 
     public Integer getId() {
         return id;

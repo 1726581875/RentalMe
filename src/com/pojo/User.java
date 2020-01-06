@@ -15,6 +15,19 @@ public class User {
 
     private String state;
 
+//    可选的参数
+    private Detail userDetail;
+    
+    
+    
+    public Detail getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(Detail userDetail) {
+        this.userDetail = userDetail;
+    }
+
     public Integer getId() {
         return id;
     }
