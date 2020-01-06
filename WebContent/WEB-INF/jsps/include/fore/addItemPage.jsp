@@ -9,39 +9,52 @@
 <body>
 
 
-<select id="cid">
-</select>
 <script>
-
-
     $(function(){
-        var ulbox;
+        var addele;
         var _data;
         $.ajax({
             type: "get",
-            url: "./package01",
+            url: "./getAllCategory",
             data: "",
             dataType: "json",
             success: function(data){
-                 _data = data.employees;
-
-                console.log(_data);
-                for(var i = 0; i < _data.length; i++){
-                    ulbox += '<option value= "' + _data[i].cid + '">' + 
-                    _data[i].categoryname + '</option>'
+                 _data = data;
+                 alert(_data.status);
+                 console.log(_data);
+                 var category = _data.data.category;
+                for(var i = 0; i < category.length; i++){
+                	addele += '<option value= "' + category[i].id + '">' + 
+                	category[i].name + '</option>'
                 }
-                $("#cid").html(ulbox);
-                console.log(ulbox);
+                
+                $("#category").html(addele);
+                console.log(addele);
 
             }
         });
     })
 </script>
 物品发布页表单
+</br>
 <form action="${pageContext.request.contextPath}/addItem" method="post">
-    <input >
-    
-    
+    标题:<input name="title" value=""></br>
+    类别:<select id="category"></select>
+    内容:<input name="contact" value=""></br>
+    租价:<input name="basePayment" value="">
+    <select name="countType">
+        <option value="0">小时</option>
+        <option value="1">天</option>
+    </select></br>
+    最短出租时间<input name="minTime" value=""></br>
+    最长出租时间<input name="maxTime" value=""></br>
+    续租价格<input name="overTimeMoney" value=""></br>
+    押金:<input name="deposit"></br>
+    可续借:
+    <select name="countType">
+        <option value="0">不可续借</option>
+        <option value="1">可续借</option>
+    </select>
     
 </form>
 </body>
