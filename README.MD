@@ -28,12 +28,13 @@ title 标题
 contact 内容
 createDate 创建时间(数据库自动生成)
 basePayment 基础付款(例如3/天, 3就是这个值, 钱以分为单位)
-countType 单位(例如3/天, 天就是这个值)
+countType 单位(0是小时, 1是天)
 minTime 最小租时长(以countType单位为准)
 maxTime 最长租借时长(以countType单位为准)
-overTime 超时时的金额计算(以countType单位为准)
-lost 丢失赔付金额(以分为单位)
-state 表示物品有没有被拍下, 正常是1, 拍下是0, 订单取消就恢复为1
+overTimeMoney 超时时的金额计算(以countType单位为准)
+deposit (押金)丢失赔付金额(以分为单位)
+renewable 是否可续借(0不可, 1可)
+rentalState 表示物品有没有被拍下, 正常是1, 拍下是0, 订单取消就恢复为1
 
 itemImage表:存储详情图片的id
 id id自增

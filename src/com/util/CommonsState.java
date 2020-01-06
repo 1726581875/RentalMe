@@ -13,12 +13,22 @@ public class CommonsState {
     public static int USER_STATE_UNPAY = 2;
     public static int USER_STATE_UNCERTIFIED = 3;
     
+//    item countType
+    public static int ITEM_COUNTTYPE_HOUR = 0;
+    public static int ITEM_COUNTTYPE_DAY = 1;
+    
+//    item renewable
+    public static int ITEM_RENEWABLE = 1;
+    public static int ITEM_NOT_RENEWABLE = 0;
+    
 //    item state
     public static int ITEM_STATE_ENABLE = 1;
     public static int ITEM_STATE_DISABLE = 0;
+    
 //    review review
     public static int REVIEW_STATE_PRAISE = 1;
     public static int REVIEW_STATE_BAD = 0;
+    
 //    order status
     public static String BUYER_UNPAYMENT = "买家未付款";
     public static String BUYER_CANCELLED = "买家已取消";
