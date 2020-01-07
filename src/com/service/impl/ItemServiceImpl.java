@@ -62,12 +62,13 @@ public class ItemServiceImpl implements IitemService{
 	@Override
 	public void fillFirstImageById(Item item) {
 	List<Itemimage> listAllItemImg = itemImageService.listAllItemImg(item.getId());
-	item.setFirstImage(listAllItemImg.get(0));
-		
+	if(!listAllItemImg.isEmpty())
+	item.setFirstImage(listAllItemImg.get(0));	
 	}
 	@Override
 	public void fillItemimagesById(Item item) {
 		List<Itemimage> listImg = itemImageService.listAllItemImg(item.getId());
+		if(!listImg.isEmpty())
 		item.setItemimages(listImg);	
 	}
 	
