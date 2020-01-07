@@ -175,4 +175,18 @@ public class Item {
     public void setRentalstate(Integer rentalstate) {
         this.rentalstate = rentalstate;
     }
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", uid=" + uid + ", cid=" + cid + ", title="
+				+ title + ", contact=" + contact + ", createdate=" + createdate
+				+ ", basepayment=" + basepayment + ", counttype=" + counttype
+				+ ", mintime=" + mintime + ", maxtime=" + maxtime
+				+ ", overtimemoney=" + overtimemoney + ", deposit=" + deposit
+				+ ", renewable=" + renewable + ", rentalstate=" + rentalstate
+				+ ", ownUser=" + ownUser + ", firstImage=" + firstImage
+				+ ", itemimages=" + itemimages + "]";
+	}
+    
+    
 }

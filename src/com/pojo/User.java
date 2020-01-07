@@ -83,4 +83,14 @@ public class User {
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", phone=" + phone + ", password=" + password
+				+ ", username=" + username + ", money=" + money + ", role="
+				+ role + ", state=" + state + ", userDetail=" + userDetail
+				+ "]";
+	}
+    
+    
 }

@@ -30,4 +30,11 @@ public class Itemimage {
     public void setPic(String pic) {
         this.pic = pic == null ? null : pic.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Itemimage [id=" + id + ", iid=" + iid + ", pic=" + pic + "]";
+	}
+    
+    
 }
