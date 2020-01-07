@@ -19,14 +19,16 @@ public class OrdersController {
     
 //    添加一个订单评价
 //    判断订单的uid是否为当前用户
-    @RequestMapping(value = "addOrderReview/{oid}", method = RequestMethod.POST)
-    public String addOrderReview(int oid, String content, int review, Model model, HttpSession session) {
-        
-        Review new_review = new Review();
-        new_review.setContent(content);
-        new_review.setReview(review);
-        
-    }
+    /*
+     * @RequestMapping(value = "addOrderReview/{oid}", method = RequestMethod.POST)
+     * public String addOrderReview(int oid, String content, int review, Model
+     * model, HttpSession session) {
+     * 
+     * Review new_review = new Review(); new_review.setContent(content);
+     * new_review.setReview(review);
+     * 
+     * }
+     */
         
         
         
