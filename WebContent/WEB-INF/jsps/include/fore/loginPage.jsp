@@ -15,6 +15,6 @@
     <input name="password" value="">
     <input type="submit">
 </form>
-<a href="${contextPath}/registerPage">注册</a>
+<a href="${pageContext.request.contextPath}/registerPage">注册</a>
 </body>
 </html>

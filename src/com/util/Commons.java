@@ -6,7 +6,8 @@ public class Commons {
     public static String PARAMETER_IS_EMPTY = "参数为空";
     public static String REGISTER_FAIL = "注册失败";
     public static String REGISTER_SUCCESS = "注册成功";
-    
+
+    public static final String ITEM_NOT_EXIT = "物品不存在";
     
     
 }

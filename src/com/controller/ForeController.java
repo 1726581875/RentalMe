@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +15,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pojo.Category;
 import com.pojo.Item;
+import com.pojo.User;
 import com.service.IcategoryService;
 import com.service.IitemService;
+import com.service.IuserService;
 import com.util.Commons;
 import com.util.CommonsState;
 
 @Controller
 public class ForeController {
 
+    @Autowired
+    private IuserService iuserService;
     @Autowired
     private IcategoryService icategoryService;
     @Autowired
@@ -67,9 +73,17 @@ public class ForeController {
     public String registerPage(Model model) {
         return "/fore/registerPage";
     }
-
+//    我的详情页面, 根据session里的user来获取用户详情, 返回一个填充了userDetail的user. 
+//    如果未登录返回登录页
     @RequestMapping("myDetailPage")
-    public String myDetailPage(Model model) {
+    public String myDetailPage(Model model, HttpSession session) {
+        User user = (User)session.getAttribute("user");
+        if (user == null) {
+            model.addAttribute("msg", Commons.UN_LOGIN);
+            return "redirect:/loginPage";
+        } else {
+            
+        }
         return "/fore/myDetailPage";
     }
 
