@@ -8,6 +8,8 @@ public class Commons {
     public static String REGISTER_SUCCESS = "注册成功";
 
     public static final String ITEM_NOT_EXIT = "物品不存在";
+    public static final String TIME_ILLEGAL = "时间不合法";
+    public static final String NOT_FOUND = "未找到";
     
     
 }

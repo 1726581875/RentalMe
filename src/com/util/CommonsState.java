@@ -14,8 +14,8 @@ public class CommonsState {
     public static String USER_STATE_UNCERTIFIED = "未实名";
     
 //    item countType
-    public static int ITEM_COUNTTYPE_HOUR = 0;
-    public static int ITEM_COUNTTYPE_DAY = 1;
+    public static String ITEM_COUNTTYPE_HOUR = "0";
+    public static String ITEM_COUNTTYPE_DAY = "1";
     
 //    item renewable
     public static int ITEM_RENEWABLE = 1;
