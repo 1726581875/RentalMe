@@ -43,14 +43,16 @@ public class ForeController {
         return "/error";
     }
     
-//    首页, 首先添加所有分类
+//    首页, 首先添加所有分类, 还有所有商品
     @RequestMapping("forehome")
     public String forehome(Model model) {
         model.addAttribute("categoryList", icategoryService.listAll());
+        List<Item> itemList = iitemService.listAllItemDESC();
+        model.addAttribute("itemList", itemList);
         return "/fore/forehomePage";
     }
-//    首页, 根据分类列出所有商品返回首页
-//  根据类别返回所有商品list, 包含首长图片, 卖家信息(未完成)
+//    首页, 根据分类列出所有商品返回首页, 还要列出所有分类
+//  根据类别返回所有商品list, 包含首长图片, 卖家信息
   @RequestMapping("listByCategory/{cid}")
   public String listByCategory(Integer cid, Model model) {
       List<Item> list = null;
@@ -64,8 +66,9 @@ public class ForeController {
           } else {
               list = iitemService.listAllItemByStateDESC(CommonsState.ITEM_STATE_ENABLE);
           }
+      model.addAttribute("categoryList", icategoryService.listAll());
       model.addAttribute("itemList", list);
-      return "/forehome";
+      return "/fore/forehomePage";
   }
     
     
@@ -104,7 +107,8 @@ public class ForeController {
     public String itemDetailPage(@PathVariable("iid") int iid, Model model) {
         Item item = iitemService.selectByPrimaryKey(iid);
         if (item == null) {
-            return "redirect:/error?msg=" + Commons.ITEM_NOT_EXIT;
+            model.addAttribute("msg", Commons.ITEM_NOT_EXIT);
+            return "redirect:/error";
         }
         iitemService.fillFirstImageById(item);
         iitemService.fillItemimagesById(item);
