@@ -19,13 +19,10 @@ public class ItemController {
     @Autowired
     private IitemService iitemService;
     
+//    添加物品, 添加完返回到物品详情页面
     @RequestMapping(value = "addItem", method = RequestMethod.POST)
     public String addItem(Item item, Model model, HttpSession session) {
         User user = (User) session.getAttribute("user"); 
-        if (user == null) {
-            model.addAttribute("msg", Commons.UN_LOGIN);
-            return "/fore/loginPage";
-        }
         Item newItem = new Item();
         newItem.setTitle(item.getTitle());
         newItem.setCid(item.getCid());
@@ -37,9 +34,8 @@ public class ItemController {
         newItem.setOvertimemoney(item.getOvertimemoney());
         newItem.setDeposit(item.getDeposit());
         newItem.setRenewable(item.getRenewable());
-        iitemService.insert(newItem);
-        model.addAttribute("item", item);
-        return "redirect:/itemDetailPage";
+        int newItemId = iitemService.insert(newItem);
+        return "redirect:/itemDetailPage/" + newItemId;
     }
     
     
