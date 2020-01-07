@@ -9,11 +9,22 @@ import com.mapper.ItemMapper;
 import com.pojo.Item;
 import com.pojo.ItemExample;
 import com.pojo.ItemExample.Criteria;
+import com.pojo.Itemimage;
+import com.pojo.User;
+import com.service.IitemImageService;
 import com.service.IitemService;
+import com.service.IuserService;
 @Service
 public class ItemServiceImpl implements IitemService{
 @Autowired
 	ItemMapper itemm;
+@Autowired   
+    IuserService userService;
+@Autowired
+    IitemImageService  itemImageService ;
+
+    
+
 	public List<Item> selectBytitle(String title) {
 		ItemExample example = new ItemExample();
 		Criteria criteria = example.createCriteria();
@@ -39,5 +50,32 @@ public class ItemServiceImpl implements IitemService{
 		criteria.andIdEqualTo(record.getId());
 		criteria.andUidEqualTo(record.getUid());
 		return itemm.deleteByExample(example);
+	}
+	
+//新增2020/1/7	
+	@Override
+	public void fillOwnUserByUid(Item item) {
+		User user = userService.getById(item.getUid());		
+		item.setOwnUser(user);
+		
+	}
+	@Override
+	public void fillFirstImageById(Item item) {
+	List<Itemimage> listAllItemImg = itemImageService.listAllItemImg(item.getId());
+	item.setFirstImage(listAllItemImg.get(0));
+		
+	}
+	@Override
+	public void fillItemimagesById(Item item) {
+		List<Itemimage> listImg = itemImageService.listAllItemImg(item.getId());
+		item.setItemimages(listImg);	
+	}
+	
+	
+	@Override
+	public List<Item> listAllItemDESC() {
+		ItemExample example = new ItemExample();
+		example.setOrderByClause("id DESC");
+		return itemm.selectByExample(example);
 	}
 }
