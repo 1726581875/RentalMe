@@ -16,6 +16,7 @@ import com.pojo.Item;
 import com.service.IcategoryService;
 import com.service.IitemService;
 import com.util.Commons;
+import com.util.CommonsState;
 
 @Controller
 public class ForeController {
@@ -40,11 +41,20 @@ public class ForeController {
 //    首页, 根据分类列出所有商品返回首页
 //  根据类别返回所有商品list, 包含首长图片, 卖家信息(未完成)
   @RequestMapping("listByCategory/{cid}")
-  public String listByCategory(int cid, Model model) {
-      if (cid == -1) {
-        iitemService.
-    }
-      return "redirect:/forehome";
+  public String listByCategory(Integer cid, Model model) {
+      List<Item> list = null;
+      if (cid != null) {
+          Category category = icategoryService.get(cid);
+          if (category != null) {
+              list = iitemService.listAllItemByStateAndCid(CommonsState.ITEM_STATE_ENABLE, category.getId());
+              } else {
+                  list = iitemService.listAllItemByStateDESC(CommonsState.ITEM_STATE_ENABLE);
+            }
+          } else {
+              list = iitemService.listAllItemByStateDESC(CommonsState.ITEM_STATE_ENABLE);
+          }
+      model.addAttribute("itemList", list);
+      return "/forehome";
   }
     
     
@@ -65,6 +75,7 @@ public class ForeController {
 
     @RequestMapping("addItemPage")
     public String addItemPage(Model model) {
+        model.addAttribute("categoryList", icategoryService.listAll());
         return "/fore/addItemPage";
     }
     
