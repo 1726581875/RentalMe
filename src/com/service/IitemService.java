@@ -12,7 +12,15 @@ public interface IitemService {
 	 int updateByPrimaryKey(Item record);
 	 int deleteByPrimaryKey(Integer id);
 	 int deleteByExample(Item record);
+	 
 	 void fillOwnUserByUid(Item item);
 	 void fillFirstImageById(Item item);
 	 void fillItemimagesById(Item item);
+	
+	 //2020/1/7新增
+	 List<Item> listAllItemDESC();
+	 List<Item> listAllItemByStaeDESC(int stae);
+	 List<Item> getItemByCid(int cid);
+	 
+	 
 }
