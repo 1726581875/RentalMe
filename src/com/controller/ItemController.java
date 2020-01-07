@@ -12,6 +12,7 @@ import com.pojo.Item;
 import com.pojo.User;
 import com.service.IitemService;
 import com.util.Commons;
+import com.util.CommonsState;
 
 @Controller
 public class ItemController {
@@ -24,8 +25,9 @@ public class ItemController {
     public String addItem(Item item, Model model, HttpSession session) {
         User user = (User) session.getAttribute("user"); 
         Item newItem = new Item();
-        newItem.setTitle(item.getTitle());
+        newItem.setUid(user.getId());
         newItem.setCid(item.getCid());
+        newItem.setTitle(item.getTitle());
         newItem.setContact(item.getContact());
         newItem.setBasepayment(item.getBasepayment());
         newItem.setCounttype(item.getCounttype());
@@ -34,6 +36,7 @@ public class ItemController {
         newItem.setOvertimemoney(item.getOvertimemoney());
         newItem.setDeposit(item.getDeposit());
         newItem.setRenewable(item.getRenewable());
+        newItem.setRentalstate(CommonsState.ITEM_STATE_ENABLE);
         int newItemId = iitemService.insert(newItem);
         return "redirect:/itemDetailPage/" + newItemId;
     }

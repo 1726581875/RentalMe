@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +19,7 @@ import com.pojo.Category;
 import com.pojo.Item;
 import com.pojo.User;
 import com.service.IcategoryService;
+import com.service.IdetailService;
 import com.service.IitemService;
 import com.service.IuserService;
 import com.util.Commons;
@@ -31,7 +34,9 @@ public class ForeController {
     private IcategoryService icategoryService;
     @Autowired
     private IitemService iitemService;
-
+    @Autowired
+    private IdetailService idetailService;
+    
     @RequestMapping("error")
     public String error(String msg, Model model) {
         model.addAttribute("msg", msg);
@@ -82,9 +87,10 @@ public class ForeController {
             model.addAttribute("msg", Commons.UN_LOGIN);
             return "redirect:/loginPage";
         } else {
-            
+            iuserService.fillUserDetailByUid(user);
+            model.addAttribute("user", user);
+            return "/fore/myDetailPage";
         }
-        return "/fore/myDetailPage";
     }
 
     @RequestMapping("addItemPage")
@@ -95,7 +101,7 @@ public class ForeController {
     
 //    通过iid来返回物品详情和相关的图片内容
     @RequestMapping("itemDetailPage/{iid}")
-    public String itemDetailPage(int iid, Model model) {
+    public String itemDetailPage(@PathVariable("iid") int iid, Model model) {
         Item item = iitemService.selectByPrimaryKey(iid);
         if (item == null) {
             return "redirect:/error?msg=" + Commons.ITEM_NOT_EXIT;
