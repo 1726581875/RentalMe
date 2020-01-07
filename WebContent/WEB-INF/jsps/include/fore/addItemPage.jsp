@@ -19,18 +19,18 @@
 </br>
 <form action="${pageContext.request.contextPath}/addItem" method="post" onsubmit="return submitCheck(this)">
     标题:<input name="title" value=""></br>
-    类别:<select> <c:forEach items="${categoryList}" var="Item">
+    类别:<select name="cid"> <c:forEach items="${categoryList}" var="Item">
      <option value="${Item.id}">${Item.name}</option>
     </c:forEach></select> 
     内容:<input name="contact" value=""></br>
-    租价:<input name="basePayment" type="number" value="">
-    <select name="countType">
+    租价:<input name="basepayment" type="number"	 value="">
+    <select name="counttype">
         <option value="0">小时</option>
         <option value="1">天</option>
     </select></br>
-    最短出租时间<input name="minTime" type="number" value=""></br>
-    最长出租时间<input name="maxTime" type="number" value=""></br>
-    续租价格<input name="overTimeMoney" type="number" value=""></br>
+    最短出租时间<input name="mintime" type="number" value=""></br>
+    最长出租时间<input name="maxtime" type="number" value=""></br>
+    续租价格<input name="overtimemoney" type="number" value=""></br>
     押金:<input name="deposit" type="number" value=""></br>
     可续借:
     <select name="renewable">
