@@ -8,15 +8,21 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import com.mapper.UserMapper;
+import com.pojo.Detail;
 import com.pojo.User;
 import com.pojo.UserExample;
 import com.pojo.UserExample.Criteria;
+import com.service.IdetailService;
 import com.service.IuserService;
 
 @Service
 public class UserServiceImpl implements IuserService {
 	@Autowired
 	private UserMapper usermapper;
+	
+	@Autowired
+	private IdetailService detailService;
+	
 	// UserExample userExample = new UserExample();
 	
 	@Override
@@ -80,6 +86,15 @@ public class UserServiceImpl implements IuserService {
 		 if(usermapper.selectByExample(userExample).isEmpty()) return null;
 		 
 		return usermapper.selectByExample(userExample).get(0);
+	}
+	
+	
+	//2020/01/7下午
+	@Override
+	public void fillUserDetailByUid(User user) {
+		
+		Detail detail = detailService.get(user.getId());		
+		user.setUserDetail(detail);
 	}
 	
 }

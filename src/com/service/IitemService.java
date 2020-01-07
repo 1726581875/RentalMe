@@ -21,6 +21,5 @@ public interface IitemService {
 	 List<Item> listAllItemDESC();
 	 List<Item> listAllItemByStateDESC(int state);
 	 List<Item> listAllItemByStateAndCid(int stae,int cid);
-	 
-	 
+	  
 }

@@ -2,6 +2,7 @@ package com.service;
 
 import java.util.List;
 
+import com.pojo.Item;
 import com.pojo.User;
 
 public interface IuserService {
@@ -13,5 +14,8 @@ public interface IuserService {
 	int delete(int id);
 	int update(User user);
 	int insert(User user);
+	
+	//2020/1/7下午
+	void fillUserDetailByUid(User user);
 	
 }
