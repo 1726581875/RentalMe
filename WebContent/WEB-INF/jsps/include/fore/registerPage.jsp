@@ -10,8 +10,8 @@
 <script type="text/javascript">
 function userNameCheck(){	
 	$("#nameTips").html("");
+	var regm="^[A-z0-9\\u4e00-\\u9fa5]*$";
 	
-	 var regm = /^[0-9]+$/;
 	if(document.all.username.value !=""&&!document.all.username.value.match(regm))
 		{
 		var str = "*格式不对";
@@ -23,16 +23,17 @@ function userNameCheck(){
 	
     //取到输入的用户名
      var username = document.all.username.value;
-        var json ={"username":username};	  		  
+     var data = {}
+     data["username"] = username;	  		  
 	  $.ajax({
 		  type:'POST',/* 请求类型为post */
 		 url:'./UserNameAjax',
 		 contentType: 'application/json;charset=UTF-8',/* 向服务器提出的请求类型 text*/
-		  data:json,/* 请求的数据 */
-		  success: function(data){/* 回调函数 */
+		 dataType:'json',
+		  data:JSON.stringify(data),/* 请求的数据 */
+		  success: function(result){/* 回调函数 */
 			//把json格式的字符串转换成json对象
-      		var jsonObj = $.parseJSON(data);
-      		if(jsonObj.flag==1){
+      		if(result.flag==1){
 
       		}
       		else{
@@ -60,17 +61,17 @@ function userPhone(){
 	
     //取到输入的用户名
      var phone = document.all.phone.value;
-        var json ={"phone":phone};	  		  
+        var data = {}
+        data["phone"] = phone;	
 	  $.ajax({
 		  type:'POST',/* 请求类型为post */
-		 url:'./UserNameAjax',
+		 url:'./UserPhoneAjax',
 		 contentType: 'application/json;charset=UTF-8',/* 向服务器提出的请求类型 text*/
-		  data:json,/* 请求的数据 */
+		 dataType:'json',
+		 data:JSON.stringify(data),/* 请求的数据 */
 		  success: function(data){/* 回调函数 */
 			//把json格式的字符串转换成json对象
-      		var jsonObj = $.parseJSON(data);
-      		if(jsonObj.flag==1){
-
+      		if(data.flag==1){
       		}
       		else{
       			var str = "*该电话已注册";
@@ -112,8 +113,8 @@ function checkPasswordeq(){
 <form action="${pageContext.request.contextPath}/insertUser" method="post">
 电话：<input maxlength="11" type="text" name="phone" id="phone" onchange="userPhone()"><span id="phoneTips" style="color: red"></span><br>
 用户名：<input type="text" name="username" id="username" onchange="userNameCheck()"><span id="nameTips" style="color: red"></span><br>
-密码：<input type="text" name="password" id="password" onchange="checkPassword()"><span id="passwordTips" style="color:red"></span><br>
-确认密码：<input type="text" name="password2" id="password2" onchange="checkPasswordeq()"><span id="passwordTips2" style="color:red"></span><br>
+密码：<input type="password" name="password" id="password" onchange="checkPassword()"><span id="passwordTips" style="color:red"></span><br>
+确认密码：<input type="password" name="password2" id="password2" onchange="checkPasswordeq()"><span id="passwordTips2" style="color:red"></span><br>
 <input type="submit" value="register">
 </form>
 </body>
