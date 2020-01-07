@@ -12,4 +12,7 @@ public interface IitemService {
 	 int updateByPrimaryKey(Item record);
 	 int deleteByPrimaryKey(Integer id);
 	 int deleteByExample(Item record);
+	 void fillOwnUserByUid(Item item);
+	 void fillFirstImageById(Item item);
+	 void fillItemimagesById(Item item);
 }
