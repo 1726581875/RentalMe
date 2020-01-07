@@ -1,6 +1,8 @@
 package com.controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pojo.User;
 import com.service.IuserService;
@@ -21,7 +24,7 @@ import com.util.Result;
 public class UserController {
     @Autowired
     private IuserService iuserService;
-    
+
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(User user, Model model, HttpSession session) {
         System.out.println("user:" + user.getPhone() + "password:" + user.getPassword());
@@ -37,7 +40,7 @@ public class UserController {
             }
             System.out.println(user2.getUsername());
             session.setAttribute("user", user2);
-            
+
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -50,59 +53,46 @@ public class UserController {
         session.invalidate();
         return "redirect:/forehome";
     }
-    
-    
-    /* 2020/1/6 新增注册功能  */
-    @RequestMapping("insertUser")	
-	public String register(User user,Model m){
-		user.setMoney(0);
-		user.setRole(0);
-		user.setState("正常");
-		if(iuserService.insert(user)!=1){
-			m.addAttribute("msg",Commons.REGISTER_FAIL);
-			return "redirect:/registerPage";
-			}
-		m.addAttribute("msg", Commons.REGISTER_SUCCESS);
-		return "redirect:/loginPage";
-	}
-	
 
-@RequestMapping(value="UserNameAjax")
-public  void testregisterCheckUserName(@RequestBody  String username,PrintWriter out){
-	//System.out.println("testJson.......");
-	String namestr = username.substring(username.lastIndexOf("=")+1,username.length());
-	//System.out.println(namestr);
-	
-	if(iuserService.getByUsername(namestr)==null)
-	{String result="{\"flag\":\"1\"}";out.print(result);
-	}
-	else{
-   String result="{\"flag\":\"0\"}";out.print(result);
-	}
+    /* 2020/1/6 新增注册功能 */
+    @RequestMapping("insertUser")
+    public String register(User user, Model m) {
 
-	
-}
+        user.setMoney(0);
+        user.setRole(0);
+        user.setState("正常");
+        if (iuserService.insert(user) != 1) {
+            m.addAttribute("msg", Commons.REGISTER_FAIL);
+            return "redirect:/registerPage";
+        }
+        m.addAttribute("msg", Commons.REGISTER_SUCCESS);
+        return "redirect:/loginPage";
+    }
 
+    @RequestMapping(value = "UserNameAjax")
+    @ResponseBody
+    public Object testregisterCheckUserName(@RequestBody Map<String, String> req_map) {
+        String username = req_map.get("username");
+        Map<String, Integer> respMap = new HashMap<>();
+        if (iuserService.getByUsername(username) == null) {
+            respMap.put("flag", 1);
+        } else {
+            respMap.put("flag", 0);
+        }
+        return respMap;
+    }
 
-@RequestMapping(value="UserPhoneAjax")
-public  void testregisterCheckPhone(@RequestBody  String phone,PrintWriter out){
-	System.out.println("testJson.......");
-	//System.out.println(username.lastIndexOf("="));
-	String phoneStr = phone.substring(phone.lastIndexOf("=")+1,phone.length());
-	System.out.println(phoneStr);
-	
-	if(iuserService.getByPhone(phoneStr)==null)
-	{String result="{\"flag\":\"1\"}";out.print(result);
-	}
-	else{
-   String result="{\"flag\":\"0\"}";
-   out.print(result);
- 
-	}
+    @RequestMapping(value = "UserPhoneAjax")
+    @ResponseBody
+    public Object testregisterCheckPhone(@RequestBody Map<String, String> req_map) {
+        String phone = req_map.get("phone");
+        Map<String, Integer> respMap = new HashMap<>();
+        if (iuserService.getByPhone(phone) == null) {
+            respMap.put("flag", 1);
+        } else {
+            respMap.put("flag", 0);
+        }
+        return respMap;
+    }
 
-	
-}
-
-    
-    
 }
