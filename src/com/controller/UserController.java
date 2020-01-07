@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.pojo.User;
 import com.service.IuserService;
 import com.util.Commons;
+import com.util.CommonsState;
 import com.util.MyTools;
 import com.util.Result;
 
@@ -25,6 +26,7 @@ public class UserController {
     @Autowired
     private IuserService iuserService;
 
+//    用户登录
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(User user, Model model, HttpSession session) {
         System.out.println("user:" + user.getPhone() + "password:" + user.getPassword());
@@ -48,19 +50,19 @@ public class UserController {
         return "redirect:/forehome";
     }
 
+//    退出
     @RequestMapping(value = "forelogout", method = RequestMethod.GET)
     public String forelogout(HttpSession session) {
         session.invalidate();
         return "redirect:/forehome";
     }
 
-    /* 2020/1/6 新增注册功能 */
+//      注册一个用户, 注册成功跳到登录页
     @RequestMapping("insertUser")
     public String register(User user, Model m) {
-
         user.setMoney(0);
         user.setRole(0);
-        user.setState("正常");
+        user.setState(CommonsState.USER_STATE_UNCERTIFIED);
         if (iuserService.insert(user) != 1) {
             m.addAttribute("msg", Commons.REGISTER_FAIL);
             return "redirect:/registerPage";
@@ -69,6 +71,7 @@ public class UserController {
         return "redirect:/loginPage";
     }
 
+//    异步判断用户名是否存在
     @RequestMapping(value = "UserNameAjax")
     @ResponseBody
     public Object testregisterCheckUserName(@RequestBody Map<String, String> req_map) {
@@ -82,6 +85,7 @@ public class UserController {
         return respMap;
     }
 
+//    异步判断电话是否存在
     @RequestMapping(value = "UserPhoneAjax")
     @ResponseBody
     public Object testregisterCheckPhone(@RequestBody Map<String, String> req_map) {
@@ -94,5 +98,8 @@ public class UserController {
         }
         return respMap;
     }
+    
+//    
+    
 
 }
