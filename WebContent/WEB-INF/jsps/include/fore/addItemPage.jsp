@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,41 +8,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+    <c:if test="${!empty msg}">
+        <span>${msg }</span>
+    </c:if>
 
 <script>
-    $(function(){
-        var addele;
-        var _data;
-        $.ajax({
-            type: "get",
-            url: "./getAllCategory",
-            data: "",
-            dataType: "json",
-            success: function(data){
-                 _data = data;
-                 console.log(_data);
-                 var category = _data.data.category;
-                for(var i = 0; i < category.length; i++){
-                	addele += '<option value= "' + category[i].id + '">' + 
-                	category[i].name + '</option>'
-                }
-                $("#category").html(addele);
-                console.log(addele);
-            }
-        });
-    })
-    
-    function submitCheck(){
-    	
-    	
-    }
+
 </script>
 物品发布页表单
 </br>
 <form action="${pageContext.request.contextPath}/addItem" method="post" onsubmit="return submitCheck(this)">
     标题:<input name="title" value=""></br>
-    类别:<select id="category" name="cid"></select>
+    类别:<select> <c:forEach items="${categoryList}" var="Item">
+     <option value="${Item.id}">${Item.name}</option>
+    </c:forEach></select> 
     内容:<input name="contact" value=""></br>
     租价:<input name="basePayment" type="number" value="">
     <select name="countType">
