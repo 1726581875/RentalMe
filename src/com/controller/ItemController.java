@@ -25,6 +25,7 @@ public class ItemController {
     public String addItem(Item item, Model model, HttpSession session) {
         User user = (User) session.getAttribute("user"); 
         Item newItem = new Item();
+        System.out.println(item.toString());
         newItem.setUid(user.getId());
         newItem.setCid(item.getCid());
         newItem.setTitle(item.getTitle());
