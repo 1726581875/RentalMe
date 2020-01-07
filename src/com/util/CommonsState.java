@@ -8,10 +8,10 @@ public class CommonsState {
     public static int USER_ROLE_USER = 0;
     public static int USER_ROLE_ADMIN = 1;
 //    user state
-    public static int USER_STATE_NORMAL = 0;
-    public static int USER_STATE_LOCK = 1;
-    public static int USER_STATE_UNPAY = 2;
-    public static int USER_STATE_UNCERTIFIED = 3;
+    public static String USER_STATE_NORMAL = "正常";
+    public static String USER_STATE_LOCK = "锁定";
+    public static String USER_STATE_UNPAY = "未付尾款";
+    public static String USER_STATE_UNCERTIFIED = "未实名";
     
 //    item countType
     public static int ITEM_COUNTTYPE_HOUR = 0;
