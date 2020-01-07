@@ -19,8 +19,8 @@ public interface IitemService {
 	
 	 //2020/1/7新增
 	 List<Item> listAllItemDESC();
-	 List<Item> listAllItemByStaeDESC(int stae);
-	 List<Item> getItemByCid(int cid);
+	 List<Item> listAllItemByStateDESC(int stae);
+	 List<Item> listAllItemByStateAndCid(int stae,int cid);
 	 
 	 
 }

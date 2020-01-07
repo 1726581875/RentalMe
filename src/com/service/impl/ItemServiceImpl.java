@@ -78,4 +78,19 @@ public class ItemServiceImpl implements IitemService{
 		example.setOrderByClause("id DESC");
 		return itemm.selectByExample(example);
 	}
+	
+	@Override
+	public List<Item> listAllItemByStaeDESC(int stae) {
+		ItemExample example = new ItemExample();
+		example.setOrderByClause("id DESC");
+		example.createCriteria().andRentalstateEqualTo(stae);
+		return itemm.selectByExample(example);
+	}
+	@Override
+	public List<Item> getItemByCid(int cid) {
+		ItemExample example = new ItemExample();
+		example.setOrderByClause("id DESC");
+		example.createCriteria().andCidEqualTo(cid);
+		return itemm.selectByExample(example);
+	}
 }
