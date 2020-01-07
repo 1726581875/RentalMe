@@ -51,7 +51,7 @@ public class ForeController {
         return "/fore/forehomePage";
     }
 //    首页, 根据分类列出所有商品返回首页, 还要列出所有分类
-//  根据类别返回所有商品list, 包含首长图片, 卖家信息
+//  根据类别返回所有商品list, 包含首张图片, 卖家信息
   @RequestMapping("listByCategory/{cid}")
   public String listByCategory(Integer cid, Model model) {
       List<Item> list = null;
@@ -117,7 +117,13 @@ public class ForeController {
         model.addAttribute("item", item);
         return "/fore/itemDetailPage";
     }
-    
+//    下单链接, 返回item到前端, 跳转到订单计算页
+    @RequestMapping("orderConfirm/{iid}")
+    public String orderConfirm(@PathVariable("iid") int iid, Model model) {
+        Item item = iitemService.selectByPrimaryKey(iid);
+        model.addAttribute("item", item);
+        return "/fore/orderItemPage";
+    }
     
     
     
