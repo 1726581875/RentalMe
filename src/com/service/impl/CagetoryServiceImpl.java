@@ -22,5 +22,23 @@ public class CagetoryServiceImpl implements IcategoryService{
         CategoryExample categoryExample = new CategoryExample();
         return categoryMapper.selectByExample(categoryExample);
     }
+
+	@Override
+	public Category get(int cid) {
+		
+		return categoryMapper.selectByPrimaryKey(cid);
+	}
+
+	@Override
+	public int insert(Category category) {
+		
+		return categoryMapper.insertSelective(category);
+	}
+
+	@Override
+	public int delete(int cid) {
+		
+		return categoryMapper.deleteByPrimaryKey(cid);
+	}
     
 }
