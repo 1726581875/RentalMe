@@ -9,10 +9,11 @@ public class Commons {
     public static String REGISTER_FAIL = "注册失败";
     public static String REGISTER_SUCCESS = "注册成功";
 
-    public static final String ITEM_NOT_EXIT = "物品不存在";
-    public static final String TIME_ILLEGAL = "时间不合法";
-    public static final String NOT_FOUND = "未找到";
-    public static final Object INSERT_FAIL = "插入失败";
+    public static String ITEM_NOT_EXIT = "物品不存在";
+    public static String TIME_ILLEGAL = "时间不合法";
+    public static String NOT_FOUND = "未找到";
+    public static Object INSERT_FAIL = "插入失败";
+    public static Object ORDER_ERROR = "不能自己下单自己";
     
     
 }
