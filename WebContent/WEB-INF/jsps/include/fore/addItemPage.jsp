@@ -77,8 +77,8 @@ function submitImgSize1Upload(){
 		<td>商品图片</td>
     <td>
         <div id="divtest">
-			<input type='file' id='imgSize1File' name='imgSize1File' class="file" onchange='submitImgSize1Upload()'/>
 		</div>
+            <input type='file' id='imgSize1File' name='imgSize1File' class="file" onchange='submitImgSize1Upload()'/>
 		 
 		 <!-- <span class="pos" id="imgSize1FileSpan">请上传图片的大小不超过3MB</span> -->   
         <input id='imgSize1' name='pic' value='' reg="^.+$" tip="亲！您忘记上传图片了。" /> 

@@ -103,6 +103,11 @@ public class ItemImageController {
 			userImageSet = new TreeSet<String>();
 		}
 		userImageSet.add(relativePath);
+		// test
+        System.out.println("userImageSet:");
+		for (String string : userImageSet) {
+            System.out.println(string);
+        }
 		session.setAttribute("userImageSet", userImageSet);
 		resp_map.put("fullPath", fullPath);
 		resp_map.put("relativePath", relativePath);
