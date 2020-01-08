@@ -109,7 +109,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pojo.Item">
+  <insert id="insert" parameterType="com.pojo.Item"> 
     insert into item (id, uid, cid, 
       title, contact, createDate, 
       basePayment, countType, minTime, 
@@ -122,6 +122,9 @@
       #{renewable,jdbcType=INTEGER}, #{rentalstate,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.Item">
+<selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+select last_insert_id()
+</selectKey>
     insert into item
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

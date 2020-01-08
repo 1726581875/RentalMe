@@ -35,7 +35,7 @@ public class ItemServiceImpl implements IitemService{
 		return itemm.selectByPrimaryKey(id);
 	}
 	public int insert(Item record) {
-		return itemm.insert(record);
+		return itemm.insertSelective(record);
 	}
 	public int updateByPrimaryKey(Item record) {
 		return itemm.updateByPrimaryKey(record);
