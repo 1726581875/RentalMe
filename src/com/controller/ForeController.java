@@ -102,14 +102,14 @@ public class ForeController {
     }
     
 //    通过iid来返回物品详情和相关的图片内容
+//    填充的可选字段: 首张图片, 详情图片, 卖家信息
     @RequestMapping("itemDetailPage/{iid}")
     public String itemDetailPage(@PathVariable("iid") int iid, Model model) {
         System.out.println(iid);
         Item item = iitemService.selectByPrimaryKey(iid);
-        System.out.println(item.toString());
         if (item == null) {
             model.addAttribute("msg", Commons.ITEM_NOT_EXIT);
-            return "redirect:/error";
+            return "/error";
         }
         iitemService.fillFirstImageById(item);
         iitemService.fillItemimagesById(item);
