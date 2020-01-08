@@ -16,9 +16,10 @@
       <tr>
       </c:if> 
 <td>
-<img id='imgSize1Imp' src="${picPath}${item.firstImage.pic}"  height="100" width="100" />
-	卖家信息:卖家电话：${item.ownUser.phone}.卖家用户名：${item.ownUser.username}
-	<a href="${pageContext.request.contextPath}/itemDetail/iid = ${item.id}"></a>
+<img id='imgSize1Imp' src="${picPath}${item.firstImage.pic}"  height="100" width="100" /><br>
+	卖家信息:<br>
+	卖家电话：${item.ownUser.phone}<br>卖家用户名：${item.ownUser.username}<br>
+	<a href="${pageContext.request.contextPath}/itemDetail/iid = ${item.id}">查看详情</a>
 </td>
 
       <c:if test="${s.index%6 ==5}">
