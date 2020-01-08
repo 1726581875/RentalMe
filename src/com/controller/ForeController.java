@@ -121,8 +121,8 @@ public class ForeController {
         return "/fore/itemDetailPage";
     }
 //    下单链接, 返回item到前端, 跳转到订单计算页
-    @RequestMapping("orderConfirm/{iid}")
-    public String orderConfirm(@PathVariable("iid") int iid, Model model) {
+    @RequestMapping("orderItem/{iid}")
+    public String orderConfirm(@PathVariable int iid, Model model) {
         Item item = iitemService.selectByPrimaryKey(iid);
         iitemService.fillFirstImageById(item);
         iitemService.fillOwnUserByUid(item);
