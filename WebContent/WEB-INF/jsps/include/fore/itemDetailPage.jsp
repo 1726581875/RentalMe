@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+     <c:set var="picPath" value="http://localhost:8080/Filesevice"></c:set> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,12 +11,24 @@
 <body>
 <table>
 <tr>
-<td>${Item.id}</td>
+<td>商品id:${item.id}</td>
+<td>标题：${item.title}</td>
+<td>内容：${item.contact}</td>
+<td>基础付款：${item.basepayment}</td>
+<!-- itemimages.pic 存的是相对路径 -->
+<td>
+<img id='imgSize1ImgSrc' src="${picPath }${item.firstImage.pic}"  height="100" width="100" />
+</td>
+<!-- 多个图片轮播 -->
 </tr>
+  <tr>
+<c:forEach items="${item.itemimages}" var="itemimages1">
+<td><img id='imgSize1Imp' src="${picPath}${itemimages1.pic}"  height="100" width="100" /></td>
+</c:forEach>
+</tr>  
+<tr>卖家电话：${item.ownUser.phone}.卖家用户名：${item.ownUser.username}</tr>
 </table>
-图片.标题.租价什么的 ...
-点击去下单.
-内容
+<a href="${pageContext.request.contextPath}/orderConfirm/iid = ${item.id}">下单</a>
 
 </body>
 </html>
