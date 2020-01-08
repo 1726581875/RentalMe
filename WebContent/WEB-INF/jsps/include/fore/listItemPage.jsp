@@ -19,7 +19,7 @@
 <img id='imgSize1Imp' src="${picPath}${item.firstImage.pic}"  height="100" width="100" /><br>
 	卖家信息:<br>
 	标题：${item.title}<br>租用价格：${item.basepayment}<br>
-	<a href="${pageContext.request.contextPath}/itemDetailPage/iid=${item.id}">查看详情</a>
+	<a href="${pageContext.request.contextPath}/itemDetailPage/${item.id}">查看详情</a>
 </td>
 
       <c:if test="${s.index%6 ==5}">

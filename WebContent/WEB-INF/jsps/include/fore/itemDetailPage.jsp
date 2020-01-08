@@ -27,7 +27,7 @@
 </tr>  
 <tr>卖家电话：${item.ownUser.phone}.卖家用户名：${item.ownUser.username}</tr>
 </table>
-<a href="${pageContext.request.contextPath}/orderConfirm/iid = ${item.id}">下单</a>
+<a href="${pageContext.request.contextPath}/orderItem/${item.id}">下单</a>
 
 </body>
 </html>
