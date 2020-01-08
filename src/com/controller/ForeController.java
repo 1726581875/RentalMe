@@ -121,6 +121,8 @@ public class ForeController {
     @RequestMapping("orderConfirm/{iid}")
     public String orderConfirm(@PathVariable("iid") int iid, Model model) {
         Item item = iitemService.selectByPrimaryKey(iid);
+        iitemService.fillFirstImageById(item);
+        iitemService.fillOwnUserByUid(item);
         model.addAttribute("item", item);
         return "/fore/orderItemPage";
     }
