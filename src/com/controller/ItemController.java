@@ -38,8 +38,12 @@ public class ItemController {
         newItem.setDeposit(item.getDeposit());
         newItem.setRenewable(item.getRenewable());
         newItem.setRentalstate(CommonsState.ITEM_STATE_ENABLE);
-        int newItemId = iitemService.insert(newItem);
-        return "redirect:/itemDetailPage/" + newItemId;
+        int state = iitemService.insert(newItem);
+        if (state != 1) {
+            model.addAttribute("msg", Commons.INSERT_FAIL);
+            return "/error";
+        }
+        return "redirect:/itemDetailPage/" + newItem.getId();
     }
     
     
