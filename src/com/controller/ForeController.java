@@ -109,7 +109,7 @@ public class ForeController {
 //    通过iid来返回物品详情和相关的图片内容
 //    填充的可选字段: 首张图片, 详情图片, 卖家信息
     @RequestMapping("itemDetailPage/{iid}")
-    public String itemDetailPage(@PathVariable("iid") String str_iid, Model model) {
+    public String itemDetailPage(@PathVariable String str_iid, Model model) {
         int iid = Integer.parseInt(str_iid);
         Item item = iitemService.selectByPrimaryKey(iid);
         if (item == null) {
@@ -124,7 +124,7 @@ public class ForeController {
     }
 //    下单链接, 返回item到前端, 跳转到订单计算页
     @RequestMapping("orderConfirm/{iid}")
-    public String orderConfirm(@PathVariable("iid") String str_iid, Model model) {
+    public String orderConfirm(@PathVariable String str_iid, Model model) {
         int iid = Integer.parseInt(str_iid);
         Item item = iitemService.selectByPrimaryKey(iid);
         iitemService.fillFirstImageById(item);
