@@ -10,7 +10,7 @@
         <span>${msg }</span>
     </c:if>
 	<c:forEach items="${categoryList}" var="Item">
-	<a href="${pageContext.request.contextPath}/listByCategory/cid=${Item.id}">${Item.name}</a>
+	<a href="${pageContext.request.contextPath}/listByCategory/${Item.id}">${Item.name}</a>
     </c:forEach>
 <body>
 <div>navigation.全部分类.xx分类.xx分类</div>
