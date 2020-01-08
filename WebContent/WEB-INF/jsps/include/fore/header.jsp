@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <script src="/RentalMe/js/jquery.js"></script>
 <script src="/RentalMe/js/jquery.form.js"></script>
+<c:set var="picPath" value="http://localhost:8080/RentalMe"></c:set> 
 </head>
 <body>
 <div>页头header</div>

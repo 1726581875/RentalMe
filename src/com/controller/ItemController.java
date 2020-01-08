@@ -1,5 +1,8 @@
 package com.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,7 @@ import com.util.CommonsState;
 
 @Controller
 public class ItemController {
+	List<String> imgURLs = new ArrayList<String>();
 
     @Autowired
     private IitemService iitemService;
@@ -43,6 +47,13 @@ public class ItemController {
             model.addAttribute("msg", Commons.INSERT_FAIL);
             return "/error";
         }
+        
+		if (!imgURLs.isEmpty())
+			for (String string : imgURLs) {
+				item.setPic(string);
+				IitemImage.insert(item);
+			}
+
         return "redirect:/itemDetailPage/" + newItem.getId();
     }
     

@@ -34,5 +34,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
     <property name="prefix" value="/WEB-INF/jsps/"></property>
     <property name="suffix" value=".jsp"></property>
  </bean>
- 
+  <!-- 文件上传解析器 -->
+   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+   <property name="maxUploadSize" value="10240000"></property>
+   </bean>
  </beans>

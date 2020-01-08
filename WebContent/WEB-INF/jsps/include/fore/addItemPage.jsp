@@ -12,7 +12,35 @@
         <span>${msg }</span>
     </c:if>
 
-<script>
+<script type="text/javascript">
+
+function submitImgSize1Upload(){
+	var option={
+			type:'POST',
+			url:'${pageContext.request.contextPath}/uploadPicAjax',
+			dataType:'text',
+			data:{
+				fileName : 'imgSize1File'
+			},
+			success:function(data){
+				//把json格式的字符串转换成json对象
+				var jsonObj = $.parseJSON(data);
+				
+				var addImage = "<img id='" + jsonObj.fullPath + 
+				"' src=\"" + jsonObj.fullPath + "\"  height=\"100\" width=\"100\" />";
+				//jq：返回服务器图片路径，把图片路径设置给img标签			
+     //$("#divtest").prepend(<input type='file' id='imgSize1File' name='imgSize1File' class=\"file\" onchange='submitImgSize1Upload()'/>");
+              // imgArray.push(jsonObj.relativePath);
+
+		$("#divtest").append(addImage);	
+				
+			}
+			
+		};
+	$("#itemForm").ajaxSubmit(option);
+	
+}
+ 
 
 </script>
 物品发布页表单
@@ -37,7 +65,29 @@
         <option value="0">不可续借</option>
         <option value="1">可续借</option>
     </select>
+    
+	
     <input type="submit" value="提交">
 </form>
+	修改商品信息：
+	<form id="itemForm" >
+	<table width="100%" border=1>
+
+    <tr>
+		<td>商品图片</td>
+    <td>
+        <div id="divtest">
+			<input type='file' id='imgSize1File' name='imgSize1File' class="file" onchange='submitImgSize1Upload()'/>
+		</div>
+		 
+		 <!-- <span class="pos" id="imgSize1FileSpan">请上传图片的大小不超过3MB</span> -->   
+        <input id='imgSize1' name='pic' value='' reg="^.+$" tip="亲！您忘记上传图片了。" /> 
+	
+	</td> 
+	</tr> 
+
+	
+	</table>
+    </form>
 </body>
 </html>
