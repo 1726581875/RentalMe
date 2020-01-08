@@ -81,7 +81,7 @@ public class OrdersController {
         orders.setIid(item.getId());
         
         model.addAttribute("item", item);
-        return "/fore/orderItemPage";
+        return "/fore/orderConfirmPage";
     }
     
     

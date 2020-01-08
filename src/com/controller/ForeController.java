@@ -47,6 +47,10 @@ public class ForeController {
     public String forehome(Model model) {
         model.addAttribute("categoryList", icategoryService.listAll());
         List<Item> itemList = iitemService.listAllItemDESC();
+        for (Item item2 : itemList) {
+            iitemService.fillFirstImageById(item2);
+            iitemService.fillOwnUserByUid(item2);
+        }
         model.addAttribute("itemList", itemList);
         return "/fore/forehomePage";
     }
