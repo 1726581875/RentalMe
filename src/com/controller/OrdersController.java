@@ -7,24 +7,32 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.aspectj.weaver.reflect.IReflectionWorld;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pojo.Item;
+import com.pojo.Orders;
 import com.pojo.Review;
+import com.pojo.User;
 import com.service.IitemService;
 import com.service.IordersService;
+import com.service.IuserService;
 import com.util.Commons;
 import com.util.CommonsState;
+import com.util.MyTools;
 import com.util.Result;
 
 @Controller
 public class OrdersController {
+    @Autowired
+    private IuserService iuserService;
     @Autowired
     private IordersService iordersService;
     @Autowired
@@ -39,34 +47,44 @@ public class OrdersController {
         Map<String, Integer> resp_map = new HashMap<String, Integer>();
         int iid = Integer.parseInt(req_map.get("iid"));
         Item item = iitemService.selectByPrimaryKey(iid);
+        if (item == null) {
+            return Result.fail(Commons.NOT_FOUND);
+        }
         long preLoan = Long.parseLong(req_map.get("preLoanDate"));
         long preReturn = Long.parseLong(req_map.get("preReturnDate"));
         String countType = item.getCounttype();
-        if (countType.equals(CommonsState.ITEM_COUNTTYPE_HOUR)) {
-            long diff = preReturn - preLoan;
-            int hours = (int)(diff / 1000 / (60 * 60));
-            if (hours > item.getMaxtime() || hours < item.getMintime()) {
-                return Result.fail(Commons.TIME_ILLEGAL);
-            }
-            int money = item.getBasepayment() * hours;
-            resp_map.put("time", hours);
-            resp_map.put("money", money);
-            resp_map.put("countType", 0);
-            return Result.success(resp_map);
-        } else if (countType.equals(CommonsState.ITEM_COUNTTYPE_DAY)) {
-            long diff = preReturn - preLoan;
-            int days = (int)(diff / 1000 / (60 * 60 * 24));
-            if (days > item.getMaxtime() || days < item.getMintime()) {
-                return Result.fail(Commons.TIME_ILLEGAL);
-            }
-            int money = item.getBasepayment() * days;
-            resp_map.put("time", days);
-            resp_map.put("money", money);
-            resp_map.put("countType", 0);
-            return Result.success(resp_map);
-        } 
-        return Result.fail(Commons.NOT_FOUND);
+        int time = MyTools.countCheckoutTime(item, preReturn - preLoan);
+        if (time == -1) {
+            return Result.fail(Commons.TIME_ILLEGAL);
+        }
+        int money = item.getBasepayment() * time;
+        resp_map.put("time", time);
+        resp_map.put("money", money);
+        resp_map.put("countType", Integer.parseInt(countType));
+        return Result.success(resp_map);
     }
+    
+//    创建订单, 并返回订单付款页(orderConfirmPage.jsp), 返回order信息
+//    item里填充了首张图片, order里填充了ownUser卖家信息
+    @RequestMapping("createOrder/{iid}")
+    public String createOrder(@PathVariable("iid") int iid, Model model, HttpSession session) {
+        Item item = iitemService.selectByPrimaryKey(iid);
+        if (item == null) {
+            model.addAttribute("msg", Commons.ITEM_NOT_EXIT);
+            return "/error";
+        }
+        User ownUser = iuserService.getById(item.getUid());
+        User user = (User)session.getAttribute("user");
+        Orders orders = new Orders();
+        orders.setOwnid(ownUser.getId());
+        orders.setUid(user.getId());
+        orders.setIid(item.getId());
+        
+        model.addAttribute("item", item);
+        return "/fore/orderItemPage";
+    }
+    
+    
     
 //    添加一个订单评价
 //    判断订单的uid是否为当前用户

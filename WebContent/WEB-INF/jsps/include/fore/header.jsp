@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="js/jquery.js"></script>
-<script src="js/jquery.form.js"></script>
+<script src="/RentalMe/js/jquery.js"></script>
+<script src="/RentalMe/js/jquery.form.js"></script>
 </head>
 <body>
 <div>页头header</div>
