@@ -122,10 +122,15 @@ public class ForeController {
     }
 //    下单链接, 返回item到前端, 跳转到订单计算页
     @RequestMapping("orderItem/{iid}")
-    public String orderConfirm(@PathVariable int iid, Model model) {
+    public String orderConfirm(@PathVariable int iid, Model model, HttpSession session) {
         Item item = iitemService.selectByPrimaryKey(iid);
         iitemService.fillFirstImageById(item);
         iitemService.fillOwnUserByUid(item);
+        User user = (User)session.getAttribute("user");
+        if (item.getUid() == user.getId()) {
+            model.addAttribute("msg", Commons.ORDER_ERROR);
+            return "/error";
+        }
         model.addAttribute("item", item);
         return "/fore/orderItemPage";
     }
