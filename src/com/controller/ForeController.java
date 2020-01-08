@@ -57,10 +57,9 @@ public class ForeController {
 //    首页, 根据分类列出所有商品返回首页, 还要列出所有分类
 //  根据类别返回所有商品list, 包含首张图片, 卖家信息
   @RequestMapping("listByCategory/{cid}")
-  public String listByCategory(@PathVariable String str_cid, Model model) {
+  public String listByCategory(@PathVariable int cid, Model model) {
       List<Item> list = null;
-      if (str_cid != null) {
-          int cid = Integer.parseInt(str_cid);
+      if (cid != -1) {
           Category category = icategoryService.get(cid);
           if (category != null) {
               list = iitemService.listAllItemByStateAndCid(CommonsState.ITEM_STATE_ENABLE, category.getId());
@@ -109,8 +108,7 @@ public class ForeController {
 //    通过iid来返回物品详情和相关的图片内容
 //    填充的可选字段: 首张图片, 详情图片, 卖家信息
     @RequestMapping("itemDetailPage/{iid}")
-    public String itemDetailPage(@PathVariable String str_iid, Model model) {
-        int iid = Integer.parseInt(str_iid);
+    public String itemDetailPage(@PathVariable int iid, Model model) {
         Item item = iitemService.selectByPrimaryKey(iid);
         if (item == null) {
             model.addAttribute("msg", Commons.ITEM_NOT_EXIT);
@@ -124,8 +122,7 @@ public class ForeController {
     }
 //    下单链接, 返回item到前端, 跳转到订单计算页
     @RequestMapping("orderConfirm/{iid}")
-    public String orderConfirm(@PathVariable String str_iid, Model model) {
-        int iid = Integer.parseInt(str_iid);
+    public String orderConfirm(@PathVariable("iid") int iid, Model model) {
         Item item = iitemService.selectByPrimaryKey(iid);
         iitemService.fillFirstImageById(item);
         iitemService.fillOwnUserByUid(item);
