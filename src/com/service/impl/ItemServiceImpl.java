@@ -91,7 +91,15 @@ public class ItemServiceImpl implements IitemService{
 	public List<Item> listAllItemByStateAndCid(int state,int cid) {
 		ItemExample example = new ItemExample();
 		example.setOrderByClause("id DESC");
-		example.createCriteria().andCidEqualTo(cid).andRentalstateEqualTo(state);;
+		example.createCriteria().andCidEqualTo(cid).andRentalstateEqualTo(state);
 		return itemm.selectByExample(example);
 	}
+	@Override
+	public List<Item> listAllItemByuidDESC(int uid) {
+		ItemExample example = new ItemExample();
+		example.setOrderByClause("id DESC");
+		example.createCriteria().andUidEqualTo(uid);
+		return itemm.selectByExample(example);
+	}
+
 }

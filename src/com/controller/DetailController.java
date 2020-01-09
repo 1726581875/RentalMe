@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.pojo.Category;
 import com.pojo.Detail;
 import com.pojo.Item;
+import com.pojo.Review;
 import com.pojo.User;
 import com.service.IdetailService;
+import com.service.IitemService;
+import com.service.IreviewService;
 import com.service.IuserService;
 import com.util.CommonsState;
 
@@ -24,7 +26,10 @@ public class DetailController {
     private IuserService iuserService;
     @Autowired
     private IdetailService idetailservice;
-    
+    @Autowired
+    private IreviewService ireviewService;
+    @Autowired
+    private IitemService iitemService;
 //    用户添加实名信息(这里没有简介)
 //    如果用户未实名则实名, 不然不执行更新
 //    添加完更新session里的user, 更新user的状态, 再返回我的详情页面
@@ -44,13 +49,19 @@ public class DetailController {
         return "redirect:/myDetailPage";
     }
     
-    @RequestMapping("userDetailPage/{id}")
-    public String userDetail(@PathVariable int id, Model model) {
-    	List<Review> targetReviewList
+    @RequestMapping("otheruserDetailPage/{id}")
+    public String userDetail(@PathVariable int id, Model model){
+    	List<Review> targetReviewList = ireviewService.listReviewByUidDESC(id);  	
+    	for (Review review : targetReviewList) {
+    		ireviewService.fillFromUserById(review);
+		}
     	User targetUser = iuserService.getById(id);
-        return "/fore/forehomePage";
+    	List<Item> listAllItemByuidDESC = iitemService.listAllItemByuidDESC(id);
+    	targetUser.setUserDetail(idetailservice.get(id));
+    	model.addAttribute("targetUser", targetUser);
+    	model.addAttribute("targetReviewList", targetReviewList);
+    	model.addAttribute("item", listAllItemByuidDESC);
+    	return "/fore/userDetailPage";
     }
-    
-    
     
 }

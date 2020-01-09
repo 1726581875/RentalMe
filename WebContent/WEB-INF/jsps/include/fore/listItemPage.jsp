@@ -17,8 +17,8 @@
       </c:if> 
 <td>
 <img id='imgSize1Imp' src="${picPath}${item.firstImage.pic}"  height="100" width="100" /><br>
-	卖家信息:{item.User.username}<br>
-	标题：${item.title}<br>租用价格：${item.basepayment}<br>
+卖家信息:<a href="${pageContext.request.contextPath}/otheruserDetailPage/${item.uid}">${item.ownUser.username}</a><br> 
+标题：${item.title}<br>租用价格：${item.basepayment}<br>
 	<a href="${pageContext.request.contextPath}/itemDetailPage/${item.id}">查看详情</a>
 </td>
 
