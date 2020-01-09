@@ -51,7 +51,7 @@ public class ReviewServiceImpl implements IreviewService{
 	@Override
 	public void fillFromUserById(Review review) {
 		User user = userService.getById(review.getFromuid());
-		review.setUser(user);
+		review.setFromUser(user);
 		
 	}
 
