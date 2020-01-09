@@ -8,7 +8,7 @@
 </head>
 <body>
 这是充值页
-<form action="${pageContext.request.contextPath}/recharge">
+<form action="${picPath}/recharge">
 <input type="text" name="money" id="money">
 <input type="submit" value="充值">
 </form>

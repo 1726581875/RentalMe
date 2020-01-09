@@ -8,7 +8,7 @@
 </head>
 <body>
 <div>
-<a href="${pageContext.request.contextPath}/addItemPage">发布租物</a>
+<a href="${picPath}/addItemPage">发布租物</a>
 </div>
 </body>
 </html>

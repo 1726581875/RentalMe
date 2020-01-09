@@ -12,13 +12,16 @@
         <span>${msg }</span>
     </c:if>
 <table>
-<form action="${pageContext.request.contextPath}/addOrderReview.do">
+<form action="${picPath}/addOrderReview">
 <input type="hidden" name="oid" id="oid" value="${oid}">
-<select>
+<br>
+<textarea name="content" cols="40" rows="4" style="OVERFLOW: hidden">
+</textarea>
+<br>
+<select name="review">
 <option value="1">好评</option>
 <option	value="0" >差评</option>
 </select><br>
-<input type="text" name="content" id="content"><br>
 <input type="submit" value="确认提交">
 </form>
 </table>

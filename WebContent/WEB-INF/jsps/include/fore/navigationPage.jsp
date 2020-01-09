@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<a href="${pageContext.request.contextPath}">logo</a>.定位.下拉选择分类搜索.
+<a href="${picPath}">logo</a>.定位.下拉选择分类搜索.
     <c:if test="${!empty user}">
-        <a href="${pageContext.request.contextPath }/myDetailPage">${user.username}</a>
+        <a href="${picPath}/myDetailPage">${user.username}</a>
         <a href="forelogout">退出</a>
     </c:if>
     <c:if test="${empty user}">

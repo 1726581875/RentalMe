@@ -110,7 +110,7 @@ function checkPasswordeq(){
 </head>
 <body>
 <span>${msg}</span><br>
-<form action="${pageContext.request.contextPath}/insertUser" method="post">
+<form action="${picPath}/insertUser" method="post">
 电话：<input maxlength="11" type="text" name="phone" id="phone" onchange="userPhone()"><span id="phoneTips" style="color: red"></span><br>
 用户名：<input type="text" name="username" id="username" onchange="userNameCheck()"><span id="nameTips" style="color: red"></span><br>
 密码：<input type="password" name="password" id="password" onchange="checkPassword()"><span id="passwordTips" style="color:red"></span><br>

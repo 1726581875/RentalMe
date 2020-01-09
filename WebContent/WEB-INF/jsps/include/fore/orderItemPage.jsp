@@ -16,7 +16,7 @@
 <!-- itemimages.pic 存的是相对路径 -->
 <img id='imgSize1ImgSrc' src="${picPath }${item.firstImage.pic}"  height="100" width="100" /><br>
 卖家电话:${item.ownUser.phone}.卖家用户名:${item.ownUser.username}<br>
-<form action="${pageContext.request.contextPath}/createOrder/${item.id}">
+<form action="${picPath}/createOrder/${item.id}">
 预计借时:<input name="preLoanDate" type="datetime-local" id="preLoanDate" value="" onchange="myFunction1()"> </br>
 预计还时:<input name="preReturnDate" type="datetime-local" id="preReturnDate" value="" onchange="myFunction2()"> </br>
 需要金额：<span id = "text1"></span><br>\

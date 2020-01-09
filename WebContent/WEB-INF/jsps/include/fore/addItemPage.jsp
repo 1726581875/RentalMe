@@ -17,7 +17,7 @@
 function submitImgSize1Upload(){
 	var option={
 			type:'POST',
-			url:'${pageContext.request.contextPath}/uploadPicAjax',
+			url:'${picPath}/uploadPicAjax',
 			dataType:'text',
 			data:{
 				fileName : 'imgSize1File'

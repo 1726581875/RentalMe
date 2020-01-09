@@ -20,6 +20,7 @@
 ----查看我的评价(异步)-----
 <%@include file="listReviewPage.jsp"%>
  
+ <a href="${picPath}/myOrdersPage">我的订单</a>
 </div>
 </body>
 </html>

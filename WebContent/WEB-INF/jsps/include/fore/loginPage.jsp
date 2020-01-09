@@ -10,7 +10,7 @@
     <c:if test="${!empty msg}">
         <span>${msg }</span>
     </c:if>
-<form action="${pageContext.request.contextPath}/login" method="post">
+<form action="${picPath}/login" method="post">
     <input name="phone" value="">
     <input name="password" value="">
     <input type="submit">
