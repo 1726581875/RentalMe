@@ -16,15 +16,15 @@
         <div>
             <img src="${picPath}${order.item.firstImage.pic}" height="100" width="100" />
              标题:${order.item.title }
-             买家:${order.ownUser.username }
+             买家:${order.buyUser.username }
              状态:${order.status }
              
              操作:
              <c:if test="${order.status eq '卖家已取消' }"></c:if>
              <c:if test="${order.status eq '买家已取消' }"></c:if>
              <c:if test="${order.status eq '买家未付款' }"><a href="sellerCancelOrder/${order.id }">取消订单</a></c:if>
-         <c:if test="${order.status eq '卖家未借出' }"><a href="sallerCancelOrder/${order.id }">取消订单</a></c:if>
-         <c:if test="${order.status eq '买家未还' }"><a href="sallerConfirmOrder/${order.id }">已收到买家还的商品</a></c:if>
+         <c:if test="${order.status eq '卖家未借出' }"><a href="sellerCancelOrder/${order.id }">取消订单</a></c:if>
+         <c:if test="${order.status eq '买家未还' }"><a href="sellerConfirmOrder/${order.id }">已收到买家还的商品</a></c:if>
          <c:if test="${order.status eq '买家未付尾款' }">打电话催债呗</c:if>
          <c:if test="${order.status eq '未评价' }"><a href="addOrderReviewPage/${order.id }">去评价</a></c:if>
          <c:if test="${order.status eq '卖家已评价' }"></c:if>

@@ -125,6 +125,9 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.pojo.Orders">
+<selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+select last_insert_id()
+</selectKey>
     insert into orders
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

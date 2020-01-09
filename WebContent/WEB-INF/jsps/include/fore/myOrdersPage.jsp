@@ -15,6 +15,7 @@
             <img src="${picPath}${order.item.firstImage.pic}" height="100" width="100" />
              标题:${order.item.title }
              卖家:${order.ownUser.username }
+             金额:${order.prepaymoney }
              状态:${order.status }
              
              操作:

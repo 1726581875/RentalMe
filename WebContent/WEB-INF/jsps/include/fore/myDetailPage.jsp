@@ -20,7 +20,8 @@
 ----查看我的评价(异步)-----
 <%@include file="listReviewPage.jsp"%>
  
- <a href="${picPath}/myOrdersPage">我的订单</a>
+ <a href="${picPath}/myRentalPage">我的借出订单</a></br>
+ <a href="${picPath}/myOrdersPage">我借到的订单</a>
 </div>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
------下单的订单信息------(异步检查是否付款成功)
-确认付款.取消订单
+-----下单的订单信息------
+<a href="${picPath}/buyerPayOrder/${orders.id }">去付款</a>|<a href="${picPath}/buyerCancelOrder/${orders.id }">取消订单</a>
 </body>
 </html>

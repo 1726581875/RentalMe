@@ -59,8 +59,11 @@ public class ReviewController {
     	review2.setContent(review.getContent());
     	review2.setReview(review.getReview());
     	ireviewService.txAddreviewAndChangeOrder(review2, orders, witchReview);
-    	
-    	return "redirect:/myOrdersPage";
+    	if (witchReview == 0) {
+            return "redirect:/myOrdersPage";
+        } else {
+            return "redirect:/myRentalPage";
+        }
     }
     
 }

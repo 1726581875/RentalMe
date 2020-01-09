@@ -42,6 +42,16 @@ public class Orders {
     
     
     
+    @Override
+    public String toString() {
+        return "Orders [id=" + id + ", ownid=" + ownid + ", uid=" + uid + ", iid=" + iid + ", ordercode=" + ordercode
+                + ", createdate=" + createdate + ", preloandate=" + preloandate + ", prereturndate=" + prereturndate
+                + ", prepaydate=" + prepaydate + ", prepaymoney=" + prepaymoney + ", loanconfirmdate=" + loanconfirmdate
+                + ", returnconfirmdate=" + returnconfirmdate + ", adjustment=" + adjustment + ", realpaymoney="
+                + realpaymoney + ", status=" + status + ", item=" + item + ", ownUser=" + ownUser + ", buyUser="
+                + buyUser + "]";
+    }
+
     public User getBuyUser() {
         return buyUser;
     }

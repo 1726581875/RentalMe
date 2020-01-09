@@ -95,12 +95,13 @@ public class OrdersController {
         orders.setCreatedate(new Date());
         orders.setPreloandate(new Date(preLoan));
         orders.setPrereturndate(new Date(preReturn));
-        orders.setPrepaymoney(prepaymoney);
+        orders.setPrepaymoney(prepaymoney + item.getDeposit());
         orders.setStatus(CommonsState.BUYER_UNPAYMENT);
         
         model.addAttribute("item", item);
         iordersService.txCreateOrder(orders, item);
-        
+        model.addAttribute("orders", orders);
+        System.out.println(orders);
         return "/fore/orderConfirmPage";
     }
    
@@ -219,7 +220,7 @@ public String sellerCancelOrder(@PathVariable int oid, Model model, HttpSession 
      return "/error";
  }
     iordersService.txSellerCancelOrder(orders, item);
-    return "redirect:/myOrdersPage";
+    return "redirect:/myRentalPage";
 }
 // 卖家确认已收到货
 // 计算实际借的时间和金额
@@ -241,12 +242,15 @@ public String sellerConfirmOrder(@PathVariable int oid, Model model, HttpSession
      int realPay = MyTools.countRealPay(orders, item);
      int realPrePay = orders.getPrepaymoney() - item.getDeposit();
      int adjust = realPay - realPrePay;
+     System.out.println("实付:" + realPay);
+     System.out.println("真实预付款(预付款减去押金):" + realPrePay);
+     System.out.println("调整金额(真实要付款的减去真实预付款):" + adjust);
      orders.setRealpaymoney(realPay);
      User user = iuserService.getById(orders.getUid());
      orders.setAdjustment(adjust);
      iordersService.txSellerConfirm(ownuser, user, orders);
      iordersService.update(orders);
-     return "redirect:/myOrdersPage";
+     return "redirect:/myRentalPage";
  }
 //    添加一个订单评价
 //    判断订单的uid是否为当前用户

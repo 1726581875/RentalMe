@@ -5,12 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mapper.OrdersMapper;
 import com.mapper.ReviewMapper;
 import com.mapper.UserMapper;
 import com.pojo.Orders;
 import com.pojo.Review;
 import com.pojo.ReviewExample;
 import com.pojo.User;
+import com.service.IordersService;
 import com.service.IreviewService;
 import com.service.IuserService;
 import com.util.CommonsState;
@@ -22,6 +24,8 @@ public class ReviewServiceImpl implements IreviewService{
 	
 	@Autowired
 	private IuserService userService;
+	@Autowired
+	private OrdersMapper ordersMapper;
 	@Override
 	public List<Review> listReviewByUidDESC(int uid) {
 		ReviewExample example = new ReviewExample();
@@ -66,6 +70,7 @@ public class ReviewServiceImpl implements IreviewService{
         } else {
             orders.setStatus(CommonsState.SALLER_REVIEW);
         }
+        ordersMapper.updateByPrimaryKeySelective(orders);
     }
 
 
