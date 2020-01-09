@@ -240,4 +240,12 @@
       state = #{state,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <update id="addMoney" parameterType="com.pojo.User">
+  update user set money = money + #{money} where id = #{id} 
+  </update>
+  
+   <update id="reduceMoney" parameterType="com.pojo.User">
+  update user set money = money - #{money} where id = #{id} 
+  </update>
 </mapper>

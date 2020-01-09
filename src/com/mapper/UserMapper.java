@@ -6,6 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
+	
+	int addMoney(User user);
+	
+	int reduceMoney(User user);
+	
     long countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
