@@ -5,10 +5,12 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.weaver.reflect.IReflectionWorld;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +23,7 @@ import com.pojo.Item;
 import com.pojo.Orders;
 import com.pojo.Review;
 import com.pojo.User;
+import com.service.IdetailService;
 import com.service.IitemService;
 import com.service.IordersService;
 import com.service.IuserService;
@@ -37,6 +40,7 @@ public class OrdersController {
     private IordersService iordersService;
     @Autowired
     private IitemService iitemService;
+    
     
 //    异步计算金额
 //    前端传物品id和时间过来, 这里做一个异步计算金额
@@ -67,24 +71,72 @@ public class OrdersController {
 //    创建订单, 并返回订单付款页(orderConfirmPage.jsp), 返回order信息
 //    item里填充了首张图片, order里填充了ownUser卖家信息
     @RequestMapping("createOrder/{iid}")
-    public String createOrder(@PathVariable("iid") int iid, Model model, HttpSession session) {
+    public String createOrder(@PathVariable("iid") int iid,String preLoanDate,String preReturnDate,Model model, HttpSession session) {
         Item item = iitemService.selectByPrimaryKey(iid);
         if (item == null) {
             model.addAttribute("msg", Commons.ITEM_NOT_EXIT);
             return "/error";
         }
+        
+        long preLoan = Long.parseLong("preLoanDate");
+        long preReturn = Long.parseLong("preReturnDate");
+        
+        int prepaymoney = MyTools.countCheckoutTime(item, preLoan-preReturn);
+        
         User ownUser = iuserService.getById(item.getUid());
         User user = (User)session.getAttribute("user");
         Orders orders = new Orders();
         orders.setOwnid(ownUser.getId());
         orders.setUid(user.getId());
         orders.setIid(item.getId());
+        orders.setOrdercode(System.currentTimeMillis()+MyTools.getFourRandom());
+        orders.setCreatedate(new Date());
+        orders.setPreloandate(new Date(preLoanDate));
+        orders.setPrereturndate(new Date(preReturnDate));
+        orders.setPrepaymoney(prepaymoney);
+        orders.setStatus(CommonsState.BUYER_UNPAYMENT);
         
         model.addAttribute("item", item);
+        iordersService.insert(orders);
+        
         return "/fore/orderConfirmPage";
     }
+   
     
-//    确认付款fdsasagdgfds
+//    确认付款fdsasagdgfds  事务
+    @RequestMapping("buyerPayOrder/{oid}")
+ public String buyerPayOrder(@PathVariable int oid,Model model,HttpSession session){
+    	
+    	   User user = (User) session.getAttribute("user");
+    	   Orders orders = (Orders)session.getAttribute("order");
+    	   
+    	   if(orders.getPrepaymoney()>user.getMoney()){
+    		   //可支付
+    		   
+    		  
+    		   
+    		   
+    	   }
+    	   else{//支付失败
+    		   
+    		   
+    		   
+    	   }
+    	   
+    	   
+    	    
+
+    	return "/fore/paymentSuccess";
+    }
+    
+    @RequestMapping("buyerCancelOrder/{oid}")
+   public String buyerCancelOrder(@PathVariable int oid,Model model){
+	   
+    	
+	   return " ";
+   }
+    
+    
     
     
 //    添加一个订单评价
