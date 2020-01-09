@@ -115,27 +115,85 @@ public class OrdersController {
             model.addAttribute("msg", Commons.NOT_FOUND);
             return "/error";
     	   }
-    	   if(orders.getPrepaymoney() < user.getMoney()){
+    	   User newUser = iuserService.getById(user.getId());
+    	   if(orders.getPrepaymoney() < newUser.getMoney()){
     		   //可支付
-    		   iordersService.txUserPayOrders(user, orders);
+    		   iordersService.txUserPayOrders(newUser, orders);
+    		   User user2 = iuserService.getById(newUser.getId());
+    		   session.setAttribute("user", user2);
     		   return "/fore/paymentSuccess";
     	   }
     	   else{//支付失败
+    	       session.setAttribute("user", newUser);
     		   model.addAttribute("msg", Commons.INSUFFICIENT_BALANCE);
     		   return "redirect:/toRecharge";
     	   }
     }
-    
+//    买家取消订单
     @RequestMapping("buyerCancelOrder/{oid}")
-   public String buyerCancelOrder(@PathVariable int oid,Model model){
-	   
-    	
-	   return " ";
+   public String buyerCancelOrder(@PathVariable int oid, Model model, HttpSession session){
+	   User user = (User)session.getAttribute("user");
+	   Orders orders = iordersService.get(oid);
+	   if (orders == null) {
+        model.addAttribute("msg", Commons.NOT_FOUND);
+        return "/error";
+    }
+	   if (orders.getUid() != user.getId()) {
+        model.addAttribute("msg", Commons.UN_LOGIN);
+        return "/error";
+    }
+	   Item item = iitemService.selectByPrimaryKey(orders.getIid());
+	   if (item == null) {
+        model.addAttribute("msg", Commons.NOT_FOUND);
+        return "/error";
+    }
+	   iordersService.txBuyerCancelOrder(orders, item);
+	   return "redirect:/myOrdersPage";
    }
     
-    
-    
-    
+//      买家确认收到货
+    @RequestMapping("buyerConfirmOrder/{oid}")
+   public String buyerConfirmOrder(@PathVariable int oid, Model model, HttpSession session){
+        User user = (User)session.getAttribute("user");
+        Orders orders = iordersService.get(oid);
+        if (orders == null) {
+         model.addAttribute("msg", Commons.NOT_FOUND);
+         return "/error";
+     }
+        if (orders.getUid() != user.getId()) {
+         model.addAttribute("msg", Commons.UN_LOGIN);
+         return "/error";
+     }
+        orders.setStatus(CommonsState.BUYER_UNRETURNED);
+        iordersService.update(orders);
+        return "redirect:/myOrdersPage";
+    }
+//    买家续借(扩展功能)
+    @RequestMapping("buyerRenewOrder/{oid}")
+   public String buyerRenewOrder(@PathVariable int oid, Model model, HttpSession session){
+        model.addAttribute("msg", "噢, 偷懒了, 这是扩展功能");
+        return "/error";
+    }
+//    买家付尾款
+   @RequestMapping("payBalance/{oid}")
+    public String payBalance(@PathVariable int oid, Model model, HttpSession session){
+       User user = (User) session.getAttribute("user");
+       Orders orders = iordersService.get(oid);
+       if (orders.getUid() != user.getId()) {
+           model.addAttribute("msg", Commons.UN_LOGIN);
+           return "/error";
+       }
+       User newUser = iuserService.getById(user.getId());
+       if (orders.getAdjustment()<=0 || !orders.getStatus().equals(CommonsState.BUYER_UNPAY_BALANCE)) {
+           model.addAttribute("msg", Commons.NO_PAYMENT);
+           return "/error";
+    }
+       if (newUser.getMoney() < orders.getAdjustment()) {
+        model.addAttribute("msg", Commons.INSUFFICIENT_BALANCE);
+        return "/error";
+    }
+       iordersService.txBuyerPayBalance(user, );
+    }
 //    添加一个订单评价
 //    判断订单的uid是否为当前用户
     /*

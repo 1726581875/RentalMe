@@ -13,4 +13,10 @@ public interface IordersService {
 	int update(Orders orders);
 	void txUserPayOrders(User user, Orders orders);
 	void txCreateOrder(Orders orders, Item item);
+	List<Orders> listMyOrders(User user);
+	List<Orders> listMyRental(User user);
+	void fillItemByIid(Orders orders);
+	void fillOwnUserByOwnId(Orders orders);
+	void txBuyerCancelOrder(Orders orders, Item item);
+	void txSellerCancelOrder(Orders orders, Item item);
 }

@@ -72,5 +72,57 @@ public class OrdersServiceImpl implements IordersService{
         item.setRentalstate(CommonsState.ITEM_STATE_DISABLE);
         itemMapper.updateByPrimaryKey(item);
     }
+
+    @Override
+    public List<Orders> listMyOrders(User user) {
+        // TODO Auto-generated method stub
+        OrdersExample example = new OrdersExample();
+        example.setOrderByClause("id DESC");
+        if (user.getId() != null) example.createCriteria().andUidEqualTo(user.getId());
+        else return null;
+        return ordersMapper.selectByExample(example);
+    }
+
+    @Override
+    public List<Orders> listMyRental(User user) {
+        // TODO Auto-generated method stub
+        OrdersExample example = new OrdersExample();
+        example.setOrderByClause("id DESC");
+        if (user.getId() != null) example.createCriteria().andOwnidEqualTo(user.getId());
+        else return null;
+        return ordersMapper.selectByExample(example);
+    }
+
+    @Override
+    public void fillItemByIid(Orders orders) {
+        // TODO Auto-generated method stub
+        orders.setItem(itemMapper.selectByPrimaryKey(orders.getIid()));
+    }
+
+    @Override
+    public void fillOwnUserByOwnId(Orders orders) {
+        // TODO Auto-generated method stub
+        orders.setOwnUser(userMapper.selectByPrimaryKey(orders.getOwnid()));
+    }
+
+    @Override
+    public void txBuyerCancelOrder(Orders orders, Item item) {
+        // TODO Auto-generated method stub
+        orders.setStatus(CommonsState.BUYER_CANCELLED);
+        ordersMapper.updateByPrimaryKeySelective(orders);
+        item.setRentalstate(CommonsState.ITEM_STATE_ENABLE);
+        itemMapper.updateByPrimaryKeySelective(item);
+    }
+
+    @Override
+    public void txSellerCancelOrder(Orders orders, Item item) {
+        // TODO Auto-generated method stub
+        orders.setStatus(CommonsState.SALLER_CANCELLED);
+        ordersMapper.updateByPrimaryKeySelective(orders);
+        item.setRentalstate(CommonsState.ITEM_STATE_ENABLE);
+        itemMapper.updateByPrimaryKeySelective(item);
+    }
 	
+    
+    
 }

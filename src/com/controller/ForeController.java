@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pojo.Category;
 import com.pojo.Item;
+import com.pojo.Orders;
 import com.pojo.User;
 import com.service.IcategoryService;
 import com.service.IdetailService;
 import com.service.IitemService;
+import com.service.IordersService;
 import com.service.IuserService;
 import com.util.Commons;
 import com.util.CommonsState;
@@ -35,6 +37,8 @@ public class ForeController {
     private IitemService iitemService;
     @Autowired
     private IdetailService idetailService;
+    @Autowired
+    private IordersService iordersService;
     
     @RequestMapping("error")
     public String error(String msg, Model model) {
@@ -133,6 +137,23 @@ public class ForeController {
         }
         model.addAttribute("item", item);
         return "/fore/orderItemPage";
+    }
+    
+//    用户查看自己买到的订单
+//    如果为空返回空, 不为空返回填充了item和user的orders, item填充了首张图片(未测试)
+    @RequestMapping("myOrdersPage")
+    public String orderConfirm(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Orders> myOrdersList = iordersService.listMyOrders(user);
+        if (!myOrdersList.isEmpty()) {
+            for (Orders orders : myOrdersList) {
+                iordersService.fillItemByIid(orders);
+                iordersService.fillOwnUserByOwnId(orders);
+                iitemService.fillFirstImageById(orders.getItem());
+            }
+        }
+        model.addAttribute("myOrdersList", myOrdersList);
+        return "/fore/myOrdersPage";
     }
     
     
