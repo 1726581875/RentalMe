@@ -18,4 +18,8 @@ public interface IuserService {
 	//2020/1/7下午
 	void fillUserDetailByUid(User user);
 	
+	int userPay(int buyerId,int money);
+	int userInMoeny(int sellerId,int money);
+	int transfer(int buyerId,int sellerId,int money);
+	
 }

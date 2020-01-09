@@ -97,4 +97,38 @@ public class UserServiceImpl implements IuserService {
 		user.setUserDetail(detail);
 	}
 	
+	
+	@Override
+	public int transfer(int buyerId, int sellerId,int money) {
+		
+		User buyer = new User();
+		buyer.setId(buyerId);
+		buyer.setMoney(money);
+		
+		User seller = new User();
+		seller.setId(sellerId);
+		seller.setMoney(money);
+		
+		int flag1 = usermapper.reduceMoney(buyer);
+		int flag2 = usermapper.addMoney(seller);
+		if(flag1==1&&flag2==1) return 1;
+		
+		return 0;
+	}
+	@Override
+	public int userPay(int buyerId, int money) {
+		
+		User buyer = new User();
+		buyer.setId(buyerId);
+		buyer.setMoney(money);
+		return usermapper.reduceMoney(buyer);
+	}
+	@Override
+	public int userInMoeny(int sellerId, int money) {
+		User seller = new User();
+		seller.setId(sellerId);
+		seller.setMoney(money);
+		return usermapper.addMoney(seller);
+	}
+	
 }
