@@ -16,10 +16,12 @@
 <!-- itemimages.pic 存的是相对路径 -->
 <img id='imgSize1ImgSrc' src="${picPath }${item.firstImage.pic}"  height="100" width="100" /><br>
 卖家电话:${item.ownUser.phone}.卖家用户名:${item.ownUser.username}<br>
-<form action="${pageContext.request.contextPath}/createOrder/iid=${item.id}">
+<form action="${pageContext.request.contextPath}/createOrder/${item.id}">
 预计借时:<input name="preLoanDate" type="datetime-local" id="preLoanDate" value="" > </br>
 预计还时:<input name="preReturnDate" type="datetime-local" id="preReturnDate" value="" onchange="myFunction2()"> </br>
-需要金额：<span id = "text1"></span><br>
+需要金额：<span id = "text1"></span><br>\
+借时时间戳:<input id="preLoanTime" type="hidden"/>
+还时时间戳<input id="preReturnTime" type="hidden" />
 			<input type="submit" value="下单"></input>
 </form><br>
 
@@ -56,14 +58,15 @@ function defaultDate(){
     document.getElementById("preLoanDate").value = formatDate;
     document.getElementById("preReturnDate").value = formatDate;
 }
-/* function myFunction1() {
+function myFunction1() {
     var x = document.getElementById("preLoanDate").value;
 	var mydate = new Date(x);
-     document.getElementById("test1").value = mydate.getTime(); 
-}*/
+    document.getElementById("preLoanTime").value = mydate.getTime();
+}
 function myFunction2() {
 var y = document.getElementById("preReturnDate").value;
 var mydate1 = new Date(y);
+document.getElementById("preReturnTime").value = mydate.getTime();
 var x = document.getElementById("preLoanDate").value;
 var mydate2 = new Date(x);
     var data = {}
