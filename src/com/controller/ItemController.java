@@ -1,6 +1,7 @@
 package com.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -38,6 +39,7 @@ public class ItemController {
         newItem.setCid(item.getCid());
         newItem.setTitle(item.getTitle());
         newItem.setContact(item.getContact());
+        newItem.setCreatedate(new Date());
         newItem.setBasepayment(item.getBasepayment());
         newItem.setCounttype(item.getCounttype());
         newItem.setMintime(item.getMintime());
