@@ -71,18 +71,20 @@ public class OrdersController {
 //    创建订单, 并返回订单付款页(orderConfirmPage.jsp), 返回order信息
 //    item里填充了首张图片, order里填充了ownUser卖家信息
     @RequestMapping("createOrder/{iid}")
-    public String createOrder(@PathVariable("iid") int iid,String preLoanDate,String preReturnDate,Model model, HttpSession session) {
+    public String createOrder(@PathVariable("iid") int iid,String preLoanTime,String preReturnTime,Model model, HttpSession session) {
         Item item = iitemService.selectByPrimaryKey(iid);
         if (item == null) {
             model.addAttribute("msg", Commons.ITEM_NOT_EXIT);
             return "/error";
         }
+        long preLoan = Long.parseLong(preLoanTime);
+        long preReturn = Long.parseLong(preReturnTime);
         
-        long preLoan = Long.parseLong("preLoanDate");
-        long preReturn = Long.parseLong("preReturnDate");
-        
-        int prepaymoney = MyTools.countCheckoutTime(item, preLoan-preReturn);
-        
+        int prepaymoney = MyTools.countCheckoutTime(item, preReturn-preLoan);
+        if (prepaymoney == -1) {
+            model.addAttribute("msg", Commons.CREATE_ORDER_FAIL);
+            return "/error";
+        }
         User ownUser = iuserService.getById(item.getUid());
         User user = (User)session.getAttribute("user");
         Orders orders = new Orders();
@@ -91,8 +93,8 @@ public class OrdersController {
         orders.setIid(item.getId());
         orders.setOrdercode(System.currentTimeMillis()+MyTools.getFourRandom());
         orders.setCreatedate(new Date());
-        orders.setPreloandate(new Date(preLoanDate));
-        orders.setPrereturndate(new Date(preReturnDate));
+        orders.setPreloandate(new Date(preLoan));
+        orders.setPrereturndate(new Date(preReturn));
         orders.setPrepaymoney(prepaymoney);
         orders.setStatus(CommonsState.BUYER_UNPAYMENT);
         
@@ -108,25 +110,20 @@ public class OrdersController {
  public String buyerPayOrder(@PathVariable int oid,Model model,HttpSession session){
     	
     	   User user = (User) session.getAttribute("user");
-    	   Orders orders = (Orders)session.getAttribute("order");
-    	   
-    	   if(orders.getPrepaymoney()>user.getMoney()){
+    	   Orders orders = iordersService.get(oid);
+    	   if (orders == null) {
+            model.addAttribute("msg", Commons.NOT_FOUND);
+            return "/error";
+    	   }
+    	   if(orders.getPrepaymoney() < user.getMoney()){
     		   //可支付
-    		   
-    		  
-    		   
-    		   
+    		   iordersService.txUserPayOrders(user, orders);
+    		   return "/fore/paymentSuccess";
     	   }
     	   else{//支付失败
-    		   
-    		   
-    		   
+    		   model.addAttribute("msg", Commons.INSUFFICIENT_BALANCE);
+    		   return "redirect:/toRecharge";
     	   }
-    	   
-    	   
-    	    
-
-    	return "/fore/paymentSuccess";
     }
     
     @RequestMapping("buyerCancelOrder/{oid}")
