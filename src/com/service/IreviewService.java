@@ -2,7 +2,9 @@ package com.service;
 
 import java.util.List;
 
+import com.pojo.Item;
 import com.pojo.Review;
+import com.pojo.User;
 
 public interface IreviewService {
 
@@ -10,5 +12,7 @@ public interface IreviewService {
 	int insert(Review review);
 	int delete(int id);
 	
+	 void fillUserByUid(Review review);
+	 void fillFromUserById(Review review);
 	
 }
