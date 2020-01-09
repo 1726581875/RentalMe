@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mapper.ItemMapper;
 import com.mapper.OrdersMapper;
 import com.mapper.UserMapper;
+import com.pojo.Item;
 import com.pojo.Orders;
 import com.pojo.OrdersExample;
 import com.pojo.User;
@@ -21,6 +23,8 @@ public class OrdersServiceImpl implements IordersService{
 	OrdersMapper ordersMapper;
 	@Autowired
 	UserMapper userMapper;
+	@Autowired
+	ItemMapper itemMapper;
 	
 	@Override
 	public int insert(Orders orders) {
@@ -59,6 +63,14 @@ public class OrdersServiceImpl implements IordersService{
         orders.setStatus(CommonsState.SALLER_UNLOAN);
         orders.setPrepaydate(new Date());
         ordersMapper.updateByPrimaryKeySelective(orders);
+    }
+
+    @Override
+    public void txCreateOrder(Orders orders, Item item) {
+        // TODO Auto-generated method stub
+        insert(orders);
+        item.setRentalstate(CommonsState.ITEM_STATE_DISABLE);
+        itemMapper.updateByPrimaryKey(item);
     }
 	
 }

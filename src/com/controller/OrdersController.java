@@ -99,7 +99,7 @@ public class OrdersController {
         orders.setStatus(CommonsState.BUYER_UNPAYMENT);
         
         model.addAttribute("item", item);
-        iordersService.insert(orders);
+        iordersService.txCreateOrder(orders, item);
         
         return "/fore/orderConfirmPage";
     }
