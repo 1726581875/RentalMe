@@ -156,8 +156,22 @@ public class ForeController {
         model.addAttribute("myOrdersList", myOrdersList);
         return "/fore/myOrdersPage";
     }
-    
-    
+//    卖家查看哪些人想借我的东西
+//    返回myRentalList, 填充了Item和首张图片, BuyUser
+    @RequestMapping("myRentalPage")
+    public String myRentalPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        List<Orders> myRentalList = iordersService.listMyRental(user);
+        if (!myRentalList.isEmpty()) {
+            for (Orders orders : myRentalList) {
+                iordersService.fillItemByIid(orders);
+                iordersService.fillBuyUserByUid(orders);
+                iitemService.fillFirstImageById(orders.getItem());
+            }
+        }
+        model.addAttribute("myRentalList", myRentalList);
+        return "/fore/myRentalPage";
+    }
     
     
     

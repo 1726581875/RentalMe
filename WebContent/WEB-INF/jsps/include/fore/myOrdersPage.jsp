@@ -8,9 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-我买到的订单. 还有列出一些买家的操作
-<c:if test="${empty myOrdersList}">你没有订单哦</c:if>
+<c:if test="${empty myOrdersList}">这里啥都没有你还来看</c:if>
 <c:if test="${!empty myOrdersList}">
     <c:forEach items="${myOrdersList}" var="order">
         <div>

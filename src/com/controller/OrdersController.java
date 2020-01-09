@@ -152,6 +152,7 @@ public class OrdersController {
    }
     
 //      买家确认收到货
+//    买家确认收到货, 更新状态和确认收到货的时间
     @RequestMapping("buyerConfirmOrder/{oid}")
    public String buyerConfirmOrder(@PathVariable int oid, Model model, HttpSession session){
         User user = (User)session.getAttribute("user");
@@ -165,6 +166,7 @@ public class OrdersController {
          return "/error";
      }
         orders.setStatus(CommonsState.BUYER_UNRETURNED);
+        orders.setLoanconfirmdate(new Date());
         iordersService.update(orders);
         return "redirect:/myOrdersPage";
     }
@@ -174,7 +176,7 @@ public class OrdersController {
         model.addAttribute("msg", "噢, 偷懒了, 这是扩展功能");
         return "/error";
     }
-//    买家付尾款
+//    买家付尾款, 更改买家金钱和订单状态
    @RequestMapping("payBalance/{oid}")
     public String payBalance(@PathVariable int oid, Model model, HttpSession session){
        User user = (User) session.getAttribute("user");
@@ -192,8 +194,60 @@ public class OrdersController {
         model.addAttribute("msg", Commons.INSUFFICIENT_BALANCE);
         return "/error";
     }
-       iordersService.txBuyerPayBalance(user, );
+       iordersService.txBuyerPayBalance(user, orders);
+       return "redirect:/myOrdersPage";
     }
+   
+//   卖家卖家卖家!!!!!!!!!!!!
+
+// 卖家取消订单
+ @RequestMapping("sellerCancelOrder/{oid}")
+public String sellerCancelOrder(@PathVariable int oid, Model model, HttpSession session){
+    User user = (User)session.getAttribute("user");
+    Orders orders = iordersService.get(oid);
+    if (orders == null) {
+     model.addAttribute("msg", Commons.NOT_FOUND);
+     return "/error";
+ }
+    if (orders.getOwnid() != user.getId()) {
+     model.addAttribute("msg", Commons.UN_LOGIN);
+     return "/error";
+ }
+    Item item = iitemService.selectByPrimaryKey(orders.getIid());
+    if (item == null) {
+     model.addAttribute("msg", Commons.NOT_FOUND);
+     return "/error";
+ }
+    iordersService.txSellerCancelOrder(orders, item);
+    return "redirect:/myOrdersPage";
+}
+// 卖家确认已收到货
+// 计算实际借的时间和金额
+ @RequestMapping("sellerConfirmOrder/{oid}")
+public String sellerConfirmOrder(@PathVariable int oid, Model model, HttpSession session){
+     User ownuser = (User)session.getAttribute("user");
+     Orders orders = iordersService.get(oid);
+     if (orders == null) {
+      model.addAttribute("msg", Commons.NOT_FOUND);
+      return "/error";
+  }
+     if (orders.getOwnid() != ownuser.getId()) {
+      model.addAttribute("msg", Commons.UN_LOGIN);
+      return "/error";
+  }
+     Date loanConfirmDate = orders.getLoanconfirmdate();
+     Item item = iitemService.selectByPrimaryKey(orders.getIid());
+     orders.setReturnconfirmdate(new Date());
+     int realPay = MyTools.countRealPay(orders, item);
+     int realPrePay = orders.getPrepaymoney() - item.getDeposit();
+     int adjust = realPay - realPrePay;
+     orders.setRealpaymoney(realPay);
+     User user = iuserService.getById(orders.getUid());
+     orders.setAdjustment(adjust);
+     iordersService.txSellerConfirm(ownuser, user, orders);
+     iordersService.update(orders);
+     return "redirect:/myOrdersPage";
+ }
 //    添加一个订单评价
 //    判断订单的uid是否为当前用户
     /*

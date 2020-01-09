@@ -3,6 +3,7 @@ package com.util;
 import java.util.Random;
 
 import com.pojo.Item;
+import com.pojo.Orders;
 
 public class MyTools {
 
@@ -38,5 +39,32 @@ public class MyTools {
         }
         return fourRandom;
     }
+
+//    因为续借没有详细做,这里就简单做一下计算实际要付的钱, 如果有续借和超时则实际情况比
+//    这个复杂得多
+    public static int countRealPay(Orders orders, Item item) {
+        // TODO Auto-generated method stub
+        long realRentalTimestamp = orders.getReturnconfirmdate().getTime() - 
+                orders.getLoanconfirmdate().getTime();
+        int realRentalTime = 0;
+        if (item.getCounttype().equals(CommonsState.ITEM_COUNTTYPE_HOUR)) {
+            realRentalTime = (int)(realRentalTimestamp / 1000 / (60 * 60));
+        } else if (item.getCounttype().equals(CommonsState.ITEM_COUNTTYPE_DAY)) {
+            realRentalTime = (int)(realRentalTimestamp / 1000 / (60 * 60 * 24));
+        } 
+        int realPay = realRentalTime * item.getBasepayment();
+        return realPay;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 }

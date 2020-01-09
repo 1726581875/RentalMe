@@ -17,6 +17,9 @@ public interface IordersService {
 	List<Orders> listMyRental(User user);
 	void fillItemByIid(Orders orders);
 	void fillOwnUserByOwnId(Orders orders);
+	void fillBuyUserByUid(Orders orders);
 	void txBuyerCancelOrder(Orders orders, Item item);
 	void txSellerCancelOrder(Orders orders, Item item);
+	void txBuyerPayBalance(User user, Orders orders);
+    void txSellerConfirm(User ownuser, User user, Orders orders);
 }

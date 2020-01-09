@@ -104,6 +104,12 @@ public class OrdersServiceImpl implements IordersService{
         // TODO Auto-generated method stub
         orders.setOwnUser(userMapper.selectByPrimaryKey(orders.getOwnid()));
     }
+    
+    @Override
+    public void fillBuyUserByUid(Orders orders) {
+        // TODO Auto-generated method stub
+        orders.setBuyUser(userMapper.selectByPrimaryKey(orders.getUid()));
+    }
 
     @Override
     public void txBuyerCancelOrder(Orders orders, Item item) {
@@ -121,6 +127,27 @@ public class OrdersServiceImpl implements IordersService{
         ordersMapper.updateByPrimaryKeySelective(orders);
         item.setRentalstate(CommonsState.ITEM_STATE_ENABLE);
         itemMapper.updateByPrimaryKeySelective(item);
+    }
+
+    @Override
+    public void txBuyerPayBalance(User user, Orders orders) {
+        // TODO Auto-generated method stub
+        user.setMoney(user.getMoney() - orders.getAdjustment());
+        userMapper.updateByPrimaryKeySelective(user);
+        orders.setStatus(CommonsState.UNREVIEW);
+        ordersMapper.updateByPrimaryKeySelective(orders);
+    }
+
+    @Override
+    public void txSellerConfirm(User ownuser, User user, Orders orders) {
+        // TODO Auto-generated method stub
+        ownuser.setMoney(ownuser.getMoney() + orders.getRealpaymoney());
+        userMapper.updateByPrimaryKeySelective(ownuser);
+        user.setMoney(user.getMoney() - orders.getRealpaymoney() +
+                orders.getPrepaymoney());
+        userMapper.updateByPrimaryKeySelective(user);
+        orders.setStatus(CommonsState.UNREVIEW);
+        ordersMapper.updateByPrimaryKeySelective(orders);
     }
 	
     

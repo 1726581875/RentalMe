@@ -38,8 +38,18 @@ public class Orders {
     
     private User ownUser;
     
+    private User buyUser;
     
     
+    
+    public User getBuyUser() {
+        return buyUser;
+    }
+
+    public void setBuyUser(User buyUser) {
+        this.buyUser = buyUser;
+    }
+
     public Item getItem() {
         return item;
     }

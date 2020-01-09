@@ -40,7 +40,8 @@ public class ReviewController {
     public String addOrderReview(Review review,int oid,HttpSession session)
      {
     	User user = (User) session.getAttribute("user");
-	
+
+        int witchReview = 0;
     	Orders orders = iordersService.get(oid);
     	
     	Review review2 = new Review(); 
@@ -50,16 +51,16 @@ public class ReviewController {
     	else if(user.getId() == orders.getOwnid())
     	{
     		review2.setUid(orders.getUid());
+    		witchReview = 1;
     	}
     	
     	review2.setFromuid(user.getId());
     	review2.setSubmitdate(new Date());
     	review2.setContent(review.getContent());
     	review2.setReview(review.getReview());
+    	ireviewService.txAddreviewAndChangeOrder(review2, orders, witchReview);
     	
-    	ireviewService.insert(review2);
-    	
-    	return "fore/addOrderReview";
+    	return "redirect:/myOrdersPage";
     }
     
 }

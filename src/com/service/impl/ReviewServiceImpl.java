@@ -7,11 +7,13 @@ import org.springframework.stereotype.Service;
 
 import com.mapper.ReviewMapper;
 import com.mapper.UserMapper;
+import com.pojo.Orders;
 import com.pojo.Review;
 import com.pojo.ReviewExample;
 import com.pojo.User;
 import com.service.IreviewService;
 import com.service.IuserService;
+import com.util.CommonsState;
 @Service
 public class ReviewServiceImpl implements IreviewService{
 
@@ -54,6 +56,17 @@ public class ReviewServiceImpl implements IreviewService{
 		review.setFromUser(user);
 		
 	}
+
+    @Override
+    public void txAddreviewAndChangeOrder(Review review, Orders orders, int witchReview) {
+        // TODO Auto-generated method stub
+        reviewMapper.insert(review);
+        if (witchReview == 0) {
+            orders.setStatus(CommonsState.BUYER_REVIEW);
+        } else {
+            orders.setStatus(CommonsState.SALLER_REVIEW);
+        }
+    }
 
 
 
