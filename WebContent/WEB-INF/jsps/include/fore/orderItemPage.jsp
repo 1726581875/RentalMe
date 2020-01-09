@@ -54,7 +54,6 @@ Date.prototype.format = function(fmt) {
 function defaultDate(){
     var nowDate = new Date();
     var formatDate = new Date(nowDate).format("yyyy-MM-ddThh:00");
-    alert(formatDate);
     document.getElementById("preLoanDate").value = formatDate;
     document.getElementById("preReturnDate").value = formatDate;
 }
@@ -62,6 +61,11 @@ function myFunction1() {
     var x = document.getElementById("preLoanDate").value;
 	var mydate = new Date(x);
     document.getElementById("preLoanTime").value = mydate.getTime();
+}
+function myFunction3() {
+	var y = document.getElementById("preReturnDate").value;
+	var mydate1 = new Date(y);
+	document.getElementById("preReturnTime").value = mydate1.getTime();
 }
 function myFunction2() {
 var y = document.getElementById("preReturnDate").value;
@@ -88,6 +92,8 @@ var mydate2 = new Date(x);
    
 }  
 defaultDate();
+myFunction3();
+myFunction1();
 </script>
 
 </body>

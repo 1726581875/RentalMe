@@ -46,7 +46,7 @@ public class ForeController {
     @RequestMapping("forehome")
     public String forehome(Model model) {
         model.addAttribute("categoryList", icategoryService.listAll());
-        List<Item> itemList = iitemService.listAllItemDESC();
+        List<Item> itemList = iitemService.listAllItemByStateDESC(CommonsState.ITEM_STATE_ENABLE);
         for (Item item2 : itemList) {
             iitemService.fillFirstImageById(item2);
             iitemService.fillOwnUserByUid(item2);

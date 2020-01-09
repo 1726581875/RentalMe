@@ -1,12 +1,18 @@
 package com.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.pojo.Category;
 import com.pojo.Detail;
+import com.pojo.Item;
 import com.pojo.User;
 import com.service.IdetailService;
 import com.service.IuserService;
@@ -38,6 +44,12 @@ public class DetailController {
         return "redirect:/myDetailPage";
     }
     
+    @RequestMapping("userDetailPage/{id}")
+    public String userDetail(@PathVariable int id, Model model) {
+    	List<Review> targetReviewList
+    	User targetUser = iuserService.getById(id);
+        return "/fore/forehomePage";
+    }
     
     
     
