@@ -66,6 +66,7 @@ function myFunction3() {
 	var y = document.getElementById("preReturnDate").value;
 	var mydate1 = new Date(y);
 	document.getElementById("preReturnTime").value = mydate1.getTime();
+}
 function myFunction2() {
 var y = document.getElementById("preReturnDate").value;
 var mydate1 = new Date(y);
