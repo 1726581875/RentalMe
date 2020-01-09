@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -99,7 +100,31 @@ public class UserController {
         return respMap;
     }
     
-//    
+// 
+    @RequestMapping("toRecharge")
+    public String toRecharge(){
+    	
+    	return "/fore/myRechargePage";
+    }
+    
+    @RequestMapping("recharge")
+    public String userRecharge(int money,Model m,HttpSession session){
+    	
+    	User user = (User)session.getAttribute("user");
+   	    System.out.println("money");
+   	    System.out.println("UserID:"+user.getId());
+   	  
+    	int flag = iuserService.userInMoeny(user.getId(),money);
+    	if(flag==0) {
+    		m.addAttribute("msg", Commons.REGISTER_FAIL);
+            return "redirect:/registerPage";
+    	}
+    	User user2 = iuserService.getById(user.getId());
+    	session.setAttribute("user",user2);
+    	
+    	return "redirect:/myDetailPage";
+    }
+    
     
 
 }
