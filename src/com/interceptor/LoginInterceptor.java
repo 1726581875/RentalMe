@@ -23,6 +23,7 @@ public class LoginInterceptor implements HandlerInterceptor  {
         HttpSession session = request.getSession();
         String contextPath=session.getServletContext().getContextPath();
         String[] noNeedAuthPage = new String[]{
+                "login",
                 "loginPage",
                 "registerPage",
                 "UserNameAjax",
