@@ -20,6 +20,7 @@ import com.pojo.Orders;
 import com.pojo.User;
 import com.service.IcategoryService;
 import com.service.IdetailService;
+import com.service.IitemImageService;
 import com.service.IitemService;
 import com.service.IordersService;
 import com.service.IuserService;
@@ -29,6 +30,8 @@ import com.util.CommonsState;
 @Controller
 public class ForeController {
 
+	@Autowired
+	private IitemImageService iitemImageService;
     @Autowired
     private IuserService iuserService;
     @Autowired
@@ -63,6 +66,7 @@ public class ForeController {
   @RequestMapping("listByCategory/{cid}")
   public String listByCategory(@PathVariable int cid, Model model) {
       List<Item> list = null;
+      System.out.println("cid:" + cid);
       if (cid != -1) {
           Category category = icategoryService.get(cid);
           if (category != null) {
@@ -73,8 +77,15 @@ public class ForeController {
           } else {
               list = iitemService.listAllItemByStateDESC(CommonsState.ITEM_STATE_ENABLE);
           }
+      if (!list.isEmpty()) {
+          for (Item item2 : list) {
+              iitemService.fillFirstImageById(item2);
+              iitemService.fillOwnUserByUid(item2);
+          }
+	}
       model.addAttribute("categoryList", icategoryService.listAll());
       model.addAttribute("itemList", list);
+      System.out.println(list);
       return "/fore/forehomePage";
   }
     

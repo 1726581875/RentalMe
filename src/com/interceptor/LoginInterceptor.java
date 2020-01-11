@@ -5,7 +5,6 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,9 +42,11 @@ public class LoginInterceptor implements HandlerInterceptor  {
                 User user =(User) session.getAttribute("user");
                 if(null==user){
                     response.sendRedirect("/RentalMe/loginPage");
+                    System.out.println("111login");
                     return false;
                 }
             }
+            System.out.println("pass");
         return true;
     }
 
