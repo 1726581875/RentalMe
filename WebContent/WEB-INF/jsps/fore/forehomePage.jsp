@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../include/fore/header.jsp"%>
 <%@include file="../include/fore/navigationPage.jsp"%>
-<%@include file="../include/fore/functionPage.jsp"%>
-<%@include file="../include/fore/categoryListPage.jsp"%>
+
+<%-- <%@include file="../include/fore/categoryListPage.jsp"%> --%>
 <%@include file="../include/fore/listItemPage.jsp"%>
 <%@include file="../include/fore/footer.jsp"%>

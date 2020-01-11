@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
  <c:if test="${!empty msg}">
         <span>${msg }</span>
     </c:if>
