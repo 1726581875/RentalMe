@@ -175,6 +175,7 @@ public class ForeController {
         List<Orders> myRentalList = iordersService.listMyRental(user);
         if (!myRentalList.isEmpty()) {
             for (Orders orders : myRentalList) {
+            	System.out.println(orders);
                 iordersService.fillItemByIid(orders);
                 iordersService.fillBuyUserByUid(orders);
                 iitemService.fillFirstImageById(orders.getItem());

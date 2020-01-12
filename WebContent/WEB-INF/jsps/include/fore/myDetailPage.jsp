@@ -86,6 +86,17 @@
               </div>
             </div>
             
+            <div class="layui-form-item">
+              <label class="layui-form-label">余额</label>
+              <div class="layui-input-block my-value">
+          			          				<div class="layui-form-mid layui-word-aux">
+    						<div class="layui-icon layui-icon-close-fill" style="display: inline;color:red;"></div>
+    							${user.money}
+    				
+    					</div>
+    					 	<a href="${picPath}/toRecharge" style="margin-left:15px;text-decoration: underline;"> <div class="layui-icon layui-icon-unlink" style="display: inline;"></div> 充值 </a>
+          			              </div>
+            </div>
             
             <div class="layui-form-item">
               <label class="layui-form-label">简介</label>
