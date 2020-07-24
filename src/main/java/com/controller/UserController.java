@@ -61,6 +61,8 @@ public class UserController {
 //      注册一个用户, 注册成功跳到登录页
     @RequestMapping("insertUser")
     public String register(User user, Model m) {
+        System.out.println("注册用户名: " );
+        System.out.println(user);
         user.setMoney(0);
         user.setRole(0);
         user.setState(CommonsState.USER_STATE_UNCERTIFIED);

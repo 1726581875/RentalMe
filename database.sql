@@ -1,4 +1,3 @@
-SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 DROP DATABASE IF EXISTS rental_me;
@@ -14,7 +13,7 @@ CREATE TABLE user (
   role int(11) NOT NULL,
   state varchar(64) NOT NULL,
   PRIMARY KEY (id)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE detail (
   uid int(11) NOT NULL ,
@@ -22,12 +21,12 @@ CREATE TABLE detail (
   realName varchar(64),
   idNumber int(11),
   PRIMARY KEY (uid)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 CREATE TABLE category (
   id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(64) NOT NULL UNIQUE,
   PRIMARY KEY (id)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 INSERT INTO category(name) VALUES ('包月穿衣');
 INSERT INTO category(name) VALUES ('礼服');
 INSERT INTO category(name) VALUES ('二次元');
@@ -57,14 +56,14 @@ CREATE TABLE item (
   renewable int(11) NOT NULL,
   rentalState int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (id)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
-CREATE TABLE itemImage (
+CREATE TABLE itemimage (
   id int(11) NOT NULL AUTO_INCREMENT,
   iid int(11) NOT NULL,
   pic varchar(64) NOT NULL,
   PRIMARY KEY (id)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE review (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -74,7 +73,7 @@ CREATE TABLE review (
   content varchar(64) NOT NULL DEFAULT 'ta在交易成功后未做出评价内容',
   review int(11) NOT NULL,
   PRIMARY KEY (id)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
 CREATE TABLE orders (
   id int(11) NOT NULL AUTO_INCREMENT,
@@ -93,7 +92,7 @@ CREATE TABLE orders (
   realPayMoney int(11) DEFAULT NULL,
   status varchar(64) NOT NULL,
   PRIMARY KEY (id)
-) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+) ENGINE = InnoDB DEFAULT CHARACTER SET = utf8;
 
 
 

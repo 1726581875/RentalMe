@@ -54,14 +54,16 @@ public class ItemController {
             return "/error";
         }
         Set<String> userImageSet = (Set<String>)session.getAttribute("userImageSet");
-        for (String string : userImageSet) {
-            Itemimage itemimage = new Itemimage();
-            itemimage.setIid(newItem.getId());
-            itemimage.setPic(string);
-            System.out.println("insert::" + itemimage);
-            iitemImageService.insert(itemimage);
+        if (userImageSet != null) {
+            for (String string : userImageSet) {
+                Itemimage itemimage = new Itemimage();
+                itemimage.setIid(newItem.getId());
+                itemimage.setPic(string);
+                System.out.println("insert::" + itemimage);
+                iitemImageService.insert(itemimage);
+            }
+            session.removeAttribute("userImageSet");
         }
-        session.removeAttribute("userImageSet");
         return "redirect:/itemDetailPage/" + newItem.getId();
     }
     

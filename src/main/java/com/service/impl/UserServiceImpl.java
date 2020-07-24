@@ -76,7 +76,6 @@ public class UserServiceImpl implements IuserService {
 	}
 	@Override
 	public int insert(User user) {
-		
 		return usermapper.insertSelective(user);
 	}
 	@Override

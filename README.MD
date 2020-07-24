@@ -1,4 +1,13 @@
-﻿user表:
+﻿# 二手交易SSM
+大二和同学一起做的模仿: 无忌租赁 的项目. 
+
+## 如何运行
+修改数据库jdbcInfo.properties配置, 部署到tomcat, 将Application Context修改为/RentalMe, 直接运行. 
+
+样例(tomcat图片服务器坏了): 
+![demo](picture/sample.png)
+
+user表:
 id id自增
 username 用户名字(唯一)
 phone 手机号(唯一)

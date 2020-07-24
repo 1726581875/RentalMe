@@ -59,10 +59,11 @@ public class ItemServiceImpl implements IitemService{
 		item.setOwnUser(user);
 		
 	}
+
 	@Override
 	public void fillFirstImageById(Item item) {
 	List<Itemimage> listAllItemImg = itemImageService.listAllItemImg(item.getId());
-	if(!listAllItemImg.isEmpty())
+	if(listAllItemImg != null && !listAllItemImg.isEmpty())
 	item.setFirstImage(listAllItemImg.get(0));	
 	}
 	@Override

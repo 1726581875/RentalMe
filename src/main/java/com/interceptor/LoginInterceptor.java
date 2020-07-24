@@ -28,7 +28,8 @@ public class LoginInterceptor implements HandlerInterceptor  {
                 "UserNameAjax",
                 "UserPhoneAjax",
                 "forehome",
-                "error"
+                "error",
+                "insertUser"
         };
 
         String uri = request.getRequestURI();

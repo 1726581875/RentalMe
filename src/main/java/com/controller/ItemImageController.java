@@ -57,7 +57,7 @@ public class ItemImageController {
 	}
 
 	// ͼƬ�ϴ���ǰ������request����˻��ԣ�
-
+	// FIXME:上传图片的方法, 挂了很正常我也不清楚怎么修复了...自己换nginx服务器存图片吧~~~
 	@RequestMapping("uploadPicAjax")
 	@ResponseBody
 	public Object uploadPic(HttpServletRequest request, String fileName) {
@@ -82,6 +82,7 @@ public class ItemImageController {
 				.lastIndexOf("."));
 
 		Client client = Client.create();
+
 		// ���ļ�������Զ�̷�����
 		WebResource resource = client.resource(Commons.SERVER_URI + "/upload/"
 				+ newFileName + suffix);
